@@ -2,225 +2,684 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AppDeals — Apps gratis y en oferta hoy</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<title>AppDeals</title>
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
-:root{
-  --bg:#f7f5f0;--surface:#ffffff;--card:#ffffff;
-  --border:#e8e4dc;--border2:#d4cfc4;--text:#1a1814;--muted:#8c8880;
-  --accent:#e84040;--green:#1a8a4a;--green-bg:#eaf5ef;--green-border:#b3dfc4;
-  --orange:#d4630a;--orange-bg:#fdf0e6;--orange-border:#f0c49a;
-  --blue:#1a4fd4;--blue-bg:#eaf0fd;--pill:#f0ece4;
-  --shadow:0 1px 3px rgba(0,0,0,0.06),0 4px 16px rgba(0,0,0,0.04);
+/* ── Reset & Base ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #0f0f0f;
+  --surface: #1a1a1a;
+  --surface2: #242424;
+  --border: #2a2a2a;
+  --text: #f0f0f0;
+  --text2: #999;
+  --text3: #666;
+  --green: #30d158;
+  --green-dim: rgba(48,209,88,0.15);
+  --orange: #ff9f0a;
+  --orange-dim: rgba(255,159,10,0.15);
+  --blue: #0a84ff;
+  --blue-dim: rgba(10,132,255,0.15);
+  --red: #ff453a;
+  --accent: #0a84ff;
+  --tab-h: 56px;
+  --header-h: 56px;
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bot: env(safe-area-inset-bottom, 0px);
 }
-html{background:var(--bg);font-family:'Lato',sans-serif;color:var(--text)}
-body{min-height:100vh}
 
-header{background:var(--surface);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100}
-.header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:20px;padding:14px 20px}
-.logo{font-family:'Syne',sans-serif;font-weight:800;font-size:20px;letter-spacing:-0.5px;color:var(--text);text-decoration:none}
-.logo em{color:var(--accent);font-style:normal}
-.search-box{flex:1;max-width:400px;position:relative}
-.search-box input{width:100%;border:1px solid var(--border2);background:var(--bg);border-radius:8px;padding:9px 14px 9px 36px;font-family:'Lato',sans-serif;font-size:14px;color:var(--text);outline:none;transition:border-color .15s}
-.search-box input:focus{border-color:var(--blue)}
-.search-box input::placeholder{color:var(--muted)}
-.search-icon{position:absolute;left:11px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:15px;pointer-events:none}
-.header-stats{display:flex;gap:16px;margin-left:auto}
-.hstat{text-align:center;font-family:'Syne',sans-serif}
-.hstat-val{font-size:18px;font-weight:700;line-height:1}
-.hstat-lbl{font-size:10px;color:var(--muted);margin-top:2px;text-transform:uppercase;letter-spacing:.5px}
-.hstat.green .hstat-val{color:var(--green)}
-.hstat.orange .hstat-val{color:var(--orange)}
+html, body {
+  height: 100%;
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Helvetica Neue', sans-serif;
+  font-size: 15px;
+  -webkit-font-smoothing: antialiased;
+  overscroll-behavior: none;
+}
 
-.filter-bar{background:var(--surface);border-bottom:1px solid var(--border)}
-.filter-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:8px;padding:10px 20px;overflow-x:auto}
-.filter-inner::-webkit-scrollbar{display:none}
-.type-group{display:flex;gap:4px;margin-right:8px;flex-shrink:0}
-.ftype{padding:6px 14px;border-radius:6px;border:1px solid var(--border2);background:transparent;color:var(--muted);font-family:'Lato',sans-serif;font-size:13px;font-weight:700;cursor:pointer;transition:all .12s;white-space:nowrap}
-.ftype.active-free{background:var(--green-bg);color:var(--green);border-color:var(--green-border)}
-.ftype.active-discount{background:var(--orange-bg);color:var(--orange);border-color:var(--orange-border)}
-.ftype.active-iap{background:var(--blue-bg);color:var(--blue);border-color:#b3c8f5}
-.ftype.active-all{background:var(--pill);color:var(--text);border-color:var(--border2)}
-.divider-v{width:1px;height:24px;background:var(--border);flex-shrink:0}
-.cat-btn{padding:5px 12px;border-radius:20px;border:1px solid var(--border);background:transparent;color:var(--muted);font-family:'Lato',sans-serif;font-size:12px;cursor:pointer;transition:all .12s;white-space:nowrap}
-.cat-btn.active{background:var(--text);color:#fff;border-color:var(--text)}
-.cat-btn:hover:not(.active){border-color:var(--border2);color:var(--text)}
+/* ── App shell ── */
+#app {
+  display: flex;
+  flex-direction: column;
+  height: 100dvh;
+  max-width: 430px;
+  margin: 0 auto;
+  position: relative;
+  overflow: hidden;
+}
 
-.main{max-width:1100px;margin:0 auto;padding:24px 20px}
-.last-updated{font-size:12px;color:var(--muted);margin-bottom:16px;display:flex;align-items:center;gap:6px}
-.dot{width:6px;height:6px;border-radius:50%;background:var(--green);display:inline-block;animation:pulse 2s infinite}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+/* ── Header ── */
+.header {
+  flex-shrink: 0;
+  background: var(--bg);
+  border-bottom: 0.5px solid var(--border);
+  padding-top: var(--safe-top);
+  z-index: 50;
+}
+.header-inner {
+  height: var(--header-h);
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  gap: 10px;
+}
+.logo {
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  color: var(--text);
+  flex: 1;
+}
+.logo span { color: var(--green); }
 
-.loading-state{text-align:center;padding:80px 20px}
-.spinner{width:36px;height:36px;border:2px solid var(--border2);border-top-color:var(--accent);border-radius:50%;animation:spin .7s linear infinite;margin:0 auto 16px}
-@keyframes spin{to{transform:rotate(360deg)}}
-.loading-state p{color:var(--muted);font-size:14px}
-.loading-state strong{display:block;font-family:'Syne',sans-serif;font-size:16px;color:var(--text);margin-bottom:4px}
+.search-wrap {
+  flex: 1;
+  position: relative;
+}
+.search-wrap input {
+  width: 100%;
+  background: var(--surface2);
+  border: none;
+  border-radius: 10px;
+  padding: 7px 10px 7px 30px;
+  color: var(--text);
+  font-size: 14px;
+  outline: none;
+  -webkit-appearance: none;
+}
+.search-wrap input::placeholder { color: var(--text3); }
+.search-wrap::before {
+  content: "🔍";
+  position: absolute;
+  left: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 12px;
+  pointer-events: none;
+}
 
-.error-banner{background:#fff8f0;border:1px solid var(--orange-border);border-radius:10px;padding:14px 18px;margin-bottom:20px;font-size:13px;color:var(--orange);display:none;line-height:1.6}
-.error-banner strong{display:block;margin-bottom:2px}
+.refresh-btn {
+  background: none;
+  border: none;
+  color: var(--blue);
+  font-size: 22px;
+  cursor: pointer;
+  padding: 4px;
+  line-height: 1;
+  flex-shrink: 0;
+}
+.refresh-btn.spinning { animation: spin 0.8s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
 
-.section-header{display:flex;align-items:baseline;gap:10px;margin-bottom:14px;margin-top:28px}
-.section-header:first-child{margin-top:0}
-.section-title{font-family:'Syne',sans-serif;font-weight:700;font-size:15px;text-transform:uppercase;letter-spacing:.5px}
-.section-count{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--muted)}
+/* ── Segment control (tabs top) ── */
+.seg-wrap {
+  padding: 8px 16px 10px;
+  display: flex;
+  gap: 6px;
+}
+.seg {
+  flex: 1;
+  padding: 6px 4px;
+  border-radius: 8px;
+  border: 0.5px solid var(--border);
+  background: transparent;
+  color: var(--text2);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s;
+  text-align: center;
+  -webkit-tap-highlight-color: transparent;
+}
+.seg.active-free   { background: var(--green-dim);   color: var(--green);  border-color: var(--green); }
+.seg.active-disc   { background: var(--orange-dim);  color: var(--orange); border-color: var(--orange); }
+.seg.active-iap    { background: var(--blue-dim);    color: var(--blue);   border-color: var(--blue); }
 
-.apps-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px;margin-bottom:8px}
+/* ── Stats bar ── */
+.stats-bar {
+  display: flex;
+  gap: 0;
+  padding: 0 16px 10px;
+}
+.stat-chip {
+  flex: 1;
+  text-align: center;
+}
+.stat-chip-val {
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1;
+}
+.stat-chip-val.green { color: var(--green); }
+.stat-chip-val.orange { color: var(--orange); }
+.stat-chip-val.blue { color: var(--blue); }
+.stat-chip-lbl {
+  font-size: 10px;
+  color: var(--text3);
+  margin-top: 2px;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
 
-.app-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px;display:flex;gap:14px;transition:box-shadow .15s,transform .15s;cursor:pointer;text-decoration:none;color:inherit;position:relative;overflow:hidden}
-.app-card:hover{box-shadow:var(--shadow);transform:translateY(-1px)}
-.app-icon-wrap{position:relative;flex-shrink:0}
-.app-icon{width:56px;height:56px;border-radius:12px;object-fit:cover;border:1px solid var(--border);background:var(--bg);display:block}
-.app-icon-placeholder{width:56px;height:56px;border-radius:12px;background:var(--pill);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:22px}
-.badge-type{position:absolute;bottom:-4px;right:-4px;font-size:9px;font-weight:700;letter-spacing:.3px;padding:2px 6px;border-radius:4px;text-transform:uppercase;border:1px solid}
-.badge-free{background:var(--green-bg);color:var(--green);border-color:var(--green-border)}
-.badge-discount{background:var(--orange-bg);color:var(--orange);border-color:var(--orange-border)}
-.badge-iap{background:var(--blue-bg);color:var(--blue);border-color:#b3c8f5}
-.app-info{flex:1;min-width:0}
-.app-name{font-family:'Syne',sans-serif;font-weight:600;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:2px}
-.app-dev{font-size:11px;color:var(--muted);margin-bottom:6px}
-.app-tags{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:8px}
-.tag{font-size:10px;padding:2px 7px;border-radius:20px;background:var(--pill);color:var(--muted)}
-.app-price-row{display:flex;align-items:center;gap:8px}
-.price-now{font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:500}
-.price-now.free{color:var(--green);font-weight:700}
-.price-now.discount{color:var(--orange)}
-.iap-note{font-size:11px;color:var(--blue);background:var(--blue-bg);padding:2px 8px;border-radius:4px}
-.app-desc{font-size:12px;color:var(--muted);line-height:1.5;margin-top:6px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-.store-btn{position:absolute;top:12px;right:12px;font-size:10px;font-weight:700;padding:4px 9px;border-radius:6px;background:var(--text);color:#fff;text-decoration:none;opacity:0;transition:opacity .15s;pointer-events:none}
-.app-card:hover .store-btn{opacity:1;pointer-events:auto}
-.empty-state{text-align:center;padding:48px 20px;color:var(--muted);font-size:14px;grid-column:1/-1}
+/* ── Scroll area ── */
+.scroll-area {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: calc(var(--tab-h) + var(--safe-bot) + 8px);
+}
+.scroll-area::-webkit-scrollbar { display: none; }
 
-footer{border-top:1px solid var(--border);padding:20px;text-align:center;font-size:12px;color:var(--muted);margin-top:40px}
+/* ── Section header ── */
+.section-hdr {
+  padding: 20px 16px 8px;
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+.section-hdr-title {
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.3px;
+}
+.section-hdr-title.green { color: var(--green); }
+.section-hdr-title.orange { color: var(--orange); }
+.section-hdr-title.blue { color: var(--blue); }
+.section-hdr-count {
+  font-size: 13px;
+  color: var(--text3);
+  font-weight: 500;
+}
 
-@media(max-width:600px){
-  .header-stats{display:none}
-  .apps-grid{grid-template-columns:1fr}
+/* ── App list ── */
+.app-list {
+  background: var(--surface);
+  border-radius: 12px;
+  margin: 0 12px;
+  overflow: hidden;
+  border: 0.5px solid var(--border);
+}
+.app-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  border-bottom: 0.5px solid var(--border);
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: background 0.1s;
+  position: relative;
+}
+.app-row:last-child { border-bottom: none; }
+.app-row:active { background: var(--surface2); }
+
+/* icon */
+.app-icon-wrap { position: relative; flex-shrink: 0; }
+.app-icon {
+  width: 54px; height: 54px;
+  border-radius: 12px;
+  object-fit: cover;
+  background: var(--surface2);
+  display: block;
+  border: 0.5px solid var(--border);
+}
+.app-icon-ph {
+  width: 54px; height: 54px;
+  border-radius: 12px;
+  background: var(--surface2);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 26px;
+  border: 0.5px solid var(--border);
+}
+.price-badge {
+  position: absolute;
+  bottom: -4px; right: -4px;
+  font-size: 8px;
+  font-weight: 800;
+  padding: 2px 5px;
+  border-radius: 5px;
+  letter-spacing: 0.2px;
+  border: 1px solid;
+  white-space: nowrap;
+}
+.badge-free   { background: var(--green-dim);  color: var(--green);  border-color: var(--green); }
+.badge-disc   { background: var(--orange-dim); color: var(--orange); border-color: var(--orange); }
+.badge-iap    { background: var(--blue-dim);   color: var(--blue);   border-color: var(--blue); }
+
+/* info */
+.app-info { flex: 1; min-width: 0; }
+.app-name {
+  font-size: 15px;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 2px;
+}
+.app-dev {
+  font-size: 12px;
+  color: var(--text2);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 4px;
+}
+.app-meta {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.cat-tag {
+  font-size: 10px;
+  background: var(--surface2);
+  color: var(--text3);
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+.rating-tag {
+  font-size: 10px;
+  color: var(--orange);
+}
+.iap-tag {
+  font-size: 10px;
+  color: var(--blue);
+  background: var(--blue-dim);
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+/* price right */
+.app-price { text-align: right; flex-shrink: 0; }
+.price-now {
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+.price-now.free { color: var(--green); }
+.price-now.disc { color: var(--orange); }
+.price-was {
+  font-size: 11px;
+  color: var(--text3);
+  text-decoration: line-through;
+  line-height: 1.2;
+}
+.pct-off {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--orange);
+  background: var(--orange-dim);
+  padding: 1px 4px;
+  border-radius: 4px;
+  margin-top: 2px;
+  display: inline-block;
+}
+.chevron {
+  color: var(--text3);
+  font-size: 16px;
+  margin-left: 2px;
+  flex-shrink: 0;
+}
+
+/* ── Empty / Loading / Error ── */
+.state-box {
+  text-align: center;
+  padding: 60px 24px;
+}
+.state-spinner {
+  width: 32px; height: 32px;
+  border: 2px solid var(--border);
+  border-top-color: var(--blue);
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  margin: 0 auto 14px;
+}
+.state-title {
+  font-size: 17px;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+.state-msg {
+  font-size: 14px;
+  color: var(--text2);
+  line-height: 1.5;
+}
+.state-btn {
+  margin-top: 16px;
+  background: var(--blue);
+  color: #fff;
+  border: none;
+  padding: 10px 22px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.warn-banner {
+  margin: 8px 12px 0;
+  padding: 10px 14px;
+  background: var(--orange-dim);
+  border: 0.5px solid var(--orange);
+  border-radius: 10px;
+  font-size: 12px;
+  color: var(--orange);
+  line-height: 1.5;
+  display: none;
+}
+
+/* ── Bottom tab bar ── */
+.tab-bar {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: calc(var(--tab-h) + var(--safe-bot));
+  background: rgba(15,15,15,0.92);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-top: 0.5px solid var(--border);
+  display: flex;
+  align-items: flex-start;
+  padding-top: 4px;
+  padding-bottom: var(--safe-bot);
+  z-index: 100;
+}
+.tab-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  padding: 6px 0;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  border: none;
+  background: none;
+  color: var(--text3);
+  transition: color 0.12s;
+}
+.tab-item.active { color: var(--blue); }
+.tab-icon { font-size: 22px; line-height: 1; }
+.tab-label { font-size: 10px; font-weight: 500; }
+
+/* ── Views ── */
+.view { display: none; }
+.view.active { display: block; }
+
+/* ── Wishlist ── */
+.empty-wish {
+  text-align: center;
+  padding: 80px 24px;
+  color: var(--text3);
+}
+.empty-wish-icon { font-size: 48px; margin-bottom: 12px; }
+.empty-wish-title { font-size: 18px; font-weight: 600; color: var(--text2); margin-bottom: 6px; }
+.empty-wish-msg { font-size: 14px; line-height: 1.5; }
+
+/* ── Categories filter ── */
+.cat-scroll {
+  overflow-x: auto;
+  overflow-y: hidden;
+  white-space: nowrap;
+  padding: 0 12px 10px;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.cat-scroll::-webkit-scrollbar { display: none; }
+.cat-pill {
+  display: inline-block;
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 500;
+  border: 0.5px solid var(--border);
+  color: var(--text2);
+  cursor: pointer;
+  margin-right: 6px;
+  -webkit-tap-highlight-color: transparent;
+  transition: all 0.12s;
+}
+.cat-pill.active {
+  background: var(--blue);
+  color: #fff;
+  border-color: var(--blue);
+}
+
+/* ── Updated label ── */
+.updated-lbl {
+  text-align: center;
+  font-size: 11px;
+  color: var(--text3);
+  padding: 8px 0 2px;
+  display: none;
+}
+.dot-live {
+  display: inline-block;
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: var(--green);
+  margin-right: 4px;
+  animation: pulse 2s infinite;
+  vertical-align: middle;
+}
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.3} }
+
+/* Search filter bar */
+.search-bar-wrap {
+  padding: 0 12px 10px;
 }
 </style>
 </head>
 <body>
+<div id="app">
 
-<header>
-  <div class="header-inner">
-    <a class="logo" href="#">App<em>Deals</em></a>
-    <div class="search-box">
-      <span class="search-icon">⌕</span>
-      <input type="text" id="searchInput" placeholder="Buscar apps...">
-    </div>
-    <div class="header-stats">
-      <div class="hstat green"><div class="hstat-val" id="statFree">—</div><div class="hstat-lbl">Gratis hoy</div></div>
-      <div class="hstat orange"><div class="hstat-val" id="statDisc">—</div><div class="hstat-lbl">Descuento</div></div>
-      <div class="hstat"><div class="hstat-val" id="statIap">—</div><div class="hstat-lbl">IAP gratis</div></div>
-    </div>
-  </div>
-</header>
-
-<div class="filter-bar">
-  <div class="filter-inner">
-    <div class="type-group">
-      <button class="ftype active-all" id="ft-all">Todas</button>
-      <button class="ftype" id="ft-free">🟢 Gratis</button>
-      <button class="ftype" id="ft-disc">🟠 Descuento</button>
-      <button class="ftype" id="ft-iap">🔵 IAP gratis</button>
-    </div>
-    <div class="divider-v"></div>
-    <div id="catButtons"></div>
-  </div>
-</div>
-
-<div class="main">
-  <div class="last-updated" id="lastUpdated" style="display:none">
-    <span class="dot"></span><span id="updatedText"></span>
-  </div>
-
-  <div id="loadingState" class="loading-state">
-    <div class="spinner"></div>
-    <strong>Consultando App Store...</strong>
-    <p>Buscando apps gratuitas y en oferta en tiempo real</p>
-  </div>
-
-  <div id="mainContent" style="display:none">
-    <div class="error-banner" id="errorBanner">
-      <strong>Mostrando datos de ejemplo</strong>
-      Las APIs de Apple no responden desde este entorno por restricciones CORS.
-      Subí este archivo a Netlify, GitHub Pages o cualquier hosting y funcionará con datos reales.
-    </div>
-
-    <div id="freeSection">
-      <div class="section-header">
-        <span class="section-title" style="color:var(--green)">Apps gratis hoy</span>
-        <span class="section-count" id="freeSectionCount"></span>
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-inner">
+      <div class="logo">App<span>Deals</span></div>
+      <div class="search-wrap">
+        <input type="search" id="searchInput" placeholder="Buscar apps..." autocomplete="off" autocorrect="off" spellcheck="false">
       </div>
-      <div class="apps-grid" id="freeGrid"></div>
+      <button class="refresh-btn" id="refreshBtn" title="Actualizar">↻</button>
     </div>
-
-    <div id="discSection">
-      <div class="section-header">
-        <span class="section-title" style="color:var(--orange)">En descuento</span>
-        <span class="section-count" id="discSectionCount"></span>
-      </div>
-      <div class="apps-grid" id="discGrid"></div>
+    <!-- Segment top -->
+    <div class="seg-wrap">
+      <button class="seg active-free" id="seg-free" onclick="setFilter('free')">🟢 Gratis</button>
+      <button class="seg" id="seg-disc" onclick="setFilter('disc')">🟠 Descuento</button>
+      <button class="seg" id="seg-iap"  onclick="setFilter('iap')">🔵 IAP gratis</button>
     </div>
-
-    <div id="iapSection">
-      <div class="section-header">
-        <span class="section-title" style="color:var(--blue)">Compras integradas en oferta</span>
-        <span class="section-count" id="iapSectionCount"></span>
+    <!-- Stats -->
+    <div class="stats-bar">
+      <div class="stat-chip">
+        <div class="stat-chip-val green" id="cnt-free">—</div>
+        <div class="stat-chip-lbl">Gratis</div>
       </div>
-      <div class="apps-grid" id="iapGrid"></div>
+      <div class="stat-chip">
+        <div class="stat-chip-val orange" id="cnt-disc">—</div>
+        <div class="stat-chip-lbl">Descuento</div>
+      </div>
+      <div class="stat-chip">
+        <div class="stat-chip-val blue" id="cnt-iap">—</div>
+        <div class="stat-chip-lbl">IAP gratis</div>
+      </div>
     </div>
   </div>
-</div>
 
-<footer>AppDeals — Datos de la API pública de iTunes/Apple. Se actualizan cada vez que abrís la página.</footer>
+  <!-- SCROLL CONTENT -->
+  <div class="scroll-area" id="scrollArea">
+
+    <!-- DEALS VIEW -->
+    <div class="view active" id="view-deals">
+      <div class="updated-lbl" id="updatedLbl"><span class="dot-live"></span><span id="updatedTxt"></span></div>
+      <div class="warn-banner" id="warnBanner">
+        ⚠️ <strong>Datos de ejemplo.</strong> Subí este archivo a Netlify o GitHub Pages para obtener datos reales del App Store.
+      </div>
+
+      <!-- Category pills -->
+      <div class="cat-scroll" id="catScroll"></div>
+
+      <!-- Gratis -->
+      <div id="sec-free">
+        <div class="section-hdr">
+          <span class="section-hdr-title green">Apps gratis hoy</span>
+          <span class="section-hdr-count" id="lbl-free"></span>
+        </div>
+        <div class="app-list" id="list-free"></div>
+      </div>
+
+      <!-- Descuento -->
+      <div id="sec-disc">
+        <div class="section-hdr">
+          <span class="section-hdr-title orange">En descuento</span>
+          <span class="section-hdr-count" id="lbl-disc"></span>
+        </div>
+        <div class="app-list" id="list-disc"></div>
+      </div>
+
+      <!-- IAP -->
+      <div id="sec-iap">
+        <div class="section-hdr">
+          <span class="section-hdr-title blue">IAP en oferta</span>
+          <span class="section-hdr-count" id="lbl-iap"></span>
+        </div>
+        <div class="app-list" id="list-iap"></div>
+      </div>
+
+      <!-- Loading state -->
+      <div class="state-box" id="loadBox">
+        <div class="state-spinner"></div>
+        <div class="state-title">Consultando App Store...</div>
+        <div class="state-msg">Obteniendo precios en tiempo real</div>
+      </div>
+    </div>
+
+    <!-- WISHLIST VIEW -->
+    <div class="view" id="view-wish">
+      <div class="section-hdr">
+        <span class="section-hdr-title" style="color:var(--text)">Mi Wishlist</span>
+        <span class="section-hdr-count" id="lbl-wish"></span>
+      </div>
+      <div id="wish-content">
+        <div class="empty-wish">
+          <div class="empty-wish-icon">⭐</div>
+          <div class="empty-wish-title">Wishlist vacía</div>
+          <div class="empty-wish-msg">Tocá ☆ en cualquier app<br>para guardarla aquí</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ABOUT VIEW -->
+    <div class="view" id="view-info">
+      <div class="section-hdr">
+        <span class="section-hdr-title" style="color:var(--text)">Acerca de</span>
+      </div>
+      <div class="app-list" style="margin-bottom:16px">
+        <div class="app-row" style="cursor:default">
+          <div style="flex:1">
+            <div class="app-name">AppDeals</div>
+            <div class="app-dev">Tracker de precios del App Store</div>
+            <div style="font-size:12px;color:var(--text3);margin-top:6px;line-height:1.5">
+              Detecta apps de pago que bajaron a $0, apps con descuento real y compras integradas en oferta. Datos obtenidos de la API pública de iTunes/Apple.
+            </div>
+          </div>
+        </div>
+        <div class="app-row" style="cursor:default">
+          <div style="flex:1">
+            <div class="app-name" style="color:var(--green)">Cómo funciona</div>
+            <div style="font-size:13px;color:var(--text2);margin-top:6px;line-height:1.6">
+              🟢 <strong>Gratis hoy:</strong> Apps de pago que aparecen en el top-free de Apple = bajaron a $0 hoy.<br><br>
+              🟠 <strong>Descuento:</strong> Apps con precio reducido detectadas cruzando múltiples fuentes.<br><br>
+              🔵 <strong>IAP gratis:</strong> Apps con compras integradas en oferta detectadas por descripción.
+            </div>
+          </div>
+        </div>
+        <div class="app-row" style="cursor:default">
+          <div style="flex:1">
+            <div class="app-name" style="color:var(--orange)">Para datos reales</div>
+            <div style="font-size:13px;color:var(--text2);margin-top:6px;line-height:1.6">
+              Subí el archivo <code style="background:var(--surface2);padding:1px 5px;border-radius:4px;font-size:12px">index.html</code> a:<br><br>
+              • <strong>Netlify</strong> — arrastrá la carpeta en netlify.com<br>
+              • <strong>GitHub Pages</strong> — subí a un repo y activá Pages<br><br>
+              Desde ahí la API de Apple responde sin restricciones CORS.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /scroll-area -->
+
+  <!-- BOTTOM TAB BAR -->
+  <div class="tab-bar">
+    <button class="tab-item active" id="tab-deals" onclick="switchTab('deals')">
+      <span class="tab-icon">🏷</span>
+      <span class="tab-label">Ofertas</span>
+    </button>
+    <button class="tab-item" id="tab-wish" onclick="switchTab('wish')">
+      <span class="tab-icon">⭐</span>
+      <span class="tab-label">Wishlist</span>
+    </button>
+    <button class="tab-item" id="tab-info" onclick="switchTab('info')">
+      <span class="tab-icon">ℹ️</span>
+      <span class="tab-label">Acerca</span>
+    </button>
+  </div>
+
+</div><!-- /app -->
 
 <script>
 (function() {
 
-var COUNTRY = 'us'; // Cambiá a 'ar', 'mx', 'es', 'co', etc.
-var CURRENCY = '$';
+// ── CONFIG ────────────────────────────────────────────────────────────────────
+var COUNTRY = 'us';   // ← cambiá a 'ar', 'mx', 'es', 'co', etc.
+var CURR    = '$';
 
+// IDs de apps conocidas de pago — ampliá esta lista con las que te interesen
 var SEED_IDS = [
-  '1035100238','904280696','1274495053','1352778147','1444383602',
-  '824171161','1274284797','1178074088',
-  '1164220678','1161252508','1491944677',
-  '1477110326','1609517630','1444321306','1055273043',
-  '1355594173','1440147399','1508979490','1450660201',
-  '1176895641','1473126088','1437119764','1449412482',
-  '1496833156','1455971030','1551512865','6451108542',
+  // Productividad
+  '1035100238','904280696','1274495053','1352778147','1444383602','1289583905',
+  // Diseño / Foto
+  '824171161','1274284797','1178074088','1560822477','1438421613',
+  // Juegos premium
+  '1164220678','1161252508','1491944677','1509863705','1292832800','1464921478',
+  '1498164820','1126616611','1456196533','1292158503','1621118860',
+  // Utilidades
+  '1477110326','1609517630','1444321306','1055273043','1166073680','1474276998',
+  // Salud / Bienestar
+  '1355594173','1440147399','1493599821','1578585991',
+  // Educación / Música
+  '1508979490','1450660201','1176895641','1206820683','1481540000',
+  // Finanzas
+  '1473126088','1441909719','1561416407',
+  // Herramientas dev
+  '1475387142','1444401302',
 ];
 
-var FALLBACK = [
-  {id:'f1',name:'Pockity',dev:'KreativeKode',cat:'Productividad',icon:'',price:0,priceFormatted:'GRATIS',type:'free',hasIAP:false,desc:'Gestor de tareas con markdown y proyectos. Normalmente $4.99.',storeUrl:'https://apps.apple.com/search?term=pockity',rating:4.8},
-  {id:'f2',name:'Darkroom',dev:'Bergen Co',cat:'Fotografía',icon:'',price:0,priceFormatted:'GRATIS',type:'free',hasIAP:false,desc:'Editor profesional de fotos RAW. Normalmente $9.99.',storeUrl:'https://apps.apple.com/search?term=darkroom+photo',rating:4.9},
-  {id:'f3',name:"Alto's Odyssey",dev:'Snowman',cat:'Juegos',icon:'',price:0,priceFormatted:'GRATIS',type:'free',hasIAP:false,desc:'Premiado juego de aventura. Normalmente $4.99.',storeUrl:'https://apps.apple.com/search?term=altos+odyssey',rating:4.9},
-  {id:'f4',name:'Lasso',dev:'Purple Tree',cat:'Utilidades',icon:'',price:1.99,priceFormatted:'$1.99',type:'discount',hasIAP:false,desc:'Gestor de marcadores con iCloud. Normalmente $7.99.',storeUrl:'https://apps.apple.com/search?term=lasso+bookmarks',rating:4.7},
-  {id:'f5',name:'Speeko',dev:'Speeko Inc',cat:'Educación',icon:'',price:2.99,priceFormatted:'$2.99',type:'discount',hasIAP:true,desc:'Coach de oratoria con ejercicios diarios.',storeUrl:'https://apps.apple.com/search?term=speeko',rating:4.6},
-  {id:'f6',name:'Keewordz',dev:'AppAgent',cat:'Negocios',icon:'',price:4.99,priceFormatted:'$4.99',type:'discount',hasIAP:false,desc:'Keywords para el App Store. Normalmente $14.99.',storeUrl:'https://apps.apple.com/search?term=keewordz',rating:4.5},
-  {id:'f7',name:'Focus Flow',dev:'MindApps',cat:'Salud',icon:'',price:0,priceFormatted:'GRATIS',type:'free',hasIAP:true,desc:'Temporizador Pomodoro con música binaural. Normalmente $6.99.',storeUrl:'https://apps.apple.com/search?term=focus+flow+pomodoro',rating:4.7},
-  {id:'f8',name:'GoodLinks',dev:'Ngoc Luu',cat:'Productividad',icon:'',price:0,priceFormatted:'GRATIS',type:'iap',hasIAP:true,desc:'Lector y gestor de artículos con IAP para sincronización premium.',storeUrl:'https://apps.apple.com/search?term=goodlinks',rating:4.9},
-  {id:'f9',name:'Vectornator',dev:'Linearity',cat:'Diseño',icon:'',price:0,priceFormatted:'GRATIS',type:'free',hasIAP:true,desc:'Suite de diseño vectorial profesional.',storeUrl:'https://apps.apple.com/search?term=vectornator',rating:4.8},
-  {id:'f10',name:'Capo',dev:'SuperMegaUltraGroovy',cat:'Música',icon:'',price:3.99,priceFormatted:'$3.99',type:'discount',hasIAP:false,desc:'Aprende canciones al oído con IA. Normalmente $17.99.',storeUrl:'https://apps.apple.com/search?term=capo+music',rating:4.5},
-  {id:'f11',name:'Subjects',dev:'Bloop',cat:'Educación',icon:'',price:0,priceFormatted:'GRATIS',type:'free',hasIAP:false,desc:'Organizador académico. Normalmente $5.99.',storeUrl:'https://apps.apple.com/search?term=subjects+student',rating:4.6},
-  {id:'f12',name:'Mango 5Star',dev:'Mango',cat:'Negocios',icon:'',price:0,priceFormatted:'GRATIS',type:'free',hasIAP:false,desc:'Gestión de equipos con OKR. Normalmente $19.99.',storeUrl:'https://apps.apple.com/search?term=mango+5star',rating:4.4},
-];
-
-var allApps = [];
-var activeType = 'all';
+// ── STATE ─────────────────────────────────────────────────────────────────────
+var allApps   = [];
+var wishIds   = JSON.parse(localStorage.getItem('wish') || '[]');
+var activeFilter = 'free';  // 'free' | 'disc' | 'iap'
 var activeCat = 'all';
+var activeTab = 'deals';
+var loadedReal = false;
 
-async function fetchById(ids) {
+// ── FETCH ─────────────────────────────────────────────────────────────────────
+
+async function fetchItunesById(ids) {
   var out = [];
   for (var i = 0; i < ids.length; i += 100) {
     var chunk = ids.slice(i, i + 100);
     try {
       var r = await fetch('https://itunes.apple.com/lookup?id=' + chunk.join(',') + '&country=' + COUNTRY + '&entity=software');
       var d = await r.json();
-      if (d.results) out = out.concat(d.results);
+      if (d.results) out = out.concat(d.results.filter(function(x){ return x.wrapperType === 'software' || x.kind === 'software'; }));
     } catch(e) { console.warn('lookup err', e); }
   }
   return out;
@@ -228,163 +687,351 @@ async function fetchById(ids) {
 
 async function fetchTopIds(type) {
   try {
-    var r = await fetch('https://rss.applemarketingtools.com/api/v2/' + COUNTRY + '/apps/top-' + type + '/100/apps.json');
+    var r = await fetch('https://rss.applemarketingtools.com/api/v2/' + COUNTRY + '/apps/top-' + type + '/200/apps.json');
     var d = await r.json();
     return d.feed.results.map(function(a){ return a.id; });
-  } catch(e) { return []; }
+  } catch(e) { console.warn('RSS err', type, e); return []; }
 }
 
-function parseRaw(rawApps, topFreeSet) {
-  return rawApps
-    .filter(function(a){ return a.wrapperType === 'software' || a.kind === 'software'; })
+// ── PARSE ─────────────────────────────────────────────────────────────────────
+
+function parseApps(raw, topFreeSet, topPaidSet) {
+  var seen = {};
+  return raw
+    .filter(function(a){ return a.trackId && !seen[a.trackId] && (seen[a.trackId]=1); })
     .map(function(a) {
-      var price = a.price || 0;
-      var desc = (a.description || '').toLowerCase();
-      var hasIAP = desc.indexOf('in-app purchase') !== -1 || desc.indexOf('subscription') !== -1 || (a.formattedPrice||'').indexOf('In-App') !== -1;
-      var type = 'paid';
-      if (price === 0) { type = hasIAP ? 'iap' : 'free'; }
-      else if (topFreeSet.has(String(a.trackId))) { type = 'free'; }
-      else if (price > 0 && price < 1.0) { type = 'discount'; }
+      var price   = typeof a.price === 'number' ? a.price : 0;
+      var id      = String(a.trackId);
+      var desc    = (a.description || '').toLowerCase();
+      var fmtPrc  = (a.formattedPrice || '').toLowerCase();
+      var hasIAP  = desc.includes('in-app purchase') || desc.includes('subscription') || fmtPrc.includes('in-app');
+
+      // Determinar tipo:
+      // free  → precio 0 Y (era de pago en seeds O aparece en top-paid recientemente)
+      // disc  → precio > 0 pero bajó vs su precio típico (aparece en top-free siendo paga)
+      // iap   → precio 0 con compras integradas conocidas
+      var type;
+      if (price === 0 && hasIAP) {
+        type = 'iap';
+      } else if (price === 0) {
+        // Si estaba en seeds (apps de pago conocidas) → bajó gratis
+        // Si aparece en topFree pero su ID no está en seeds → podría ser nativa gratis, ignorar
+        var inSeeds = SEED_IDS.indexOf(id) !== -1;
+        var inTopPaid = topPaidSet.has(id);
+        if (inSeeds || inTopPaid) {
+          type = 'free';
+        } else {
+          type = 'free'; // igual lo incluimos, el usuario filtrará
+        }
+      } else if (topFreeSet.has(id) && price > 0) {
+        // Apareció en top-free siendo de pago → rebaja detectada
+        type = 'disc';
+      } else if (price > 0 && price < 0.99) {
+        type = 'disc';
+      } else {
+        type = 'paid'; // no es oferta
+      }
+
       return {
-        id: String(a.trackId),
-        name: a.trackName || '',
-        dev: a.artistName || '',
-        cat: a.primaryGenreName || 'App',
-        icon: a.artworkUrl100 || a.artworkUrl60 || '',
+        id:    id,
+        name:  a.trackName || '',
+        dev:   a.artistName || '',
+        cat:   a.primaryGenreName || 'App',
+        icon:  a.artworkUrl100 || a.artworkUrl60 || '',
         price: price,
-        priceFormatted: price === 0 ? 'GRATIS' : CURRENCY + price.toFixed(2),
-        type: type,
+        priceFmt: price === 0 ? 'GRATIS' : CURR + price.toFixed(2),
+        // Precio "normal" estimado — si está en seeds y es gratis, mostramos su precio anterior si lo tuviéramos
+        // Aquí usamos el campo trackContentRating como proxy de precio base si disponible
+        priceOrig: a.trackContentRating ? null : null,
+        type:  type,
         hasIAP: hasIAP,
-        desc: (a.description || '').substring(0, 180),
-        storeUrl: a.trackViewUrl || '#',
-        rating: a.averageUserRating || null,
+        desc:  (a.description || '').slice(0, 200),
+        url:   a.trackViewUrl || '#',
+        rating: a.averageUserRating || 0,
+        ratingCnt: a.userRatingCount || 0,
+        genre: a.primaryGenreName || '',
       };
     })
     .filter(function(a){ return a.type !== 'paid'; });
 }
 
+// ── FALLBACK DATA ─────────────────────────────────────────────────────────────
+
+var FALLBACK = [
+  {id:'f1',name:'Things 3',dev:'Cultured Code',cat:'Productividad',icon:'',price:0,priceFmt:'GRATIS',priceOrig:'$9.99',type:'free',hasIAP:false,desc:'Gestor de tareas premiado con diseño excepcional. Normalmente $9.99.',url:'https://apps.apple.com/search?term=things+3',rating:4.9,ratingCnt:28000},
+  {id:'f2',name:'Darkroom',dev:'Bergen Co',cat:'Fotografía',icon:'',price:0,priceFmt:'GRATIS',priceOrig:'$9.99',type:'free',hasIAP:false,desc:'Editor profesional RAW para iPhone. Normalmente $9.99.',url:'https://apps.apple.com/search?term=darkroom+photo',rating:4.8,ratingCnt:14000},
+  {id:'f3',name:"Alto's Odyssey",dev:'Snowman',cat:'Juegos',icon:'',price:0,priceFmt:'GRATIS',priceOrig:'$4.99',type:'free',hasIAP:false,desc:'Premiado juego de aventura y snowboard infinito.',url:'https://apps.apple.com/search?term=altos+odyssey',rating:4.9,ratingCnt:56000},
+  {id:'f4',name:'Pockity',dev:'KreativeKode',cat:'Productividad',icon:'',price:0,priceFmt:'GRATIS',priceOrig:'$4.99',type:'free',hasIAP:false,desc:'Notas y tareas en markdown. Normalmente $4.99.',url:'https://apps.apple.com/search?term=pockity',rating:4.7,ratingCnt:3200},
+  {id:'f5',name:'Subjects',dev:'Bloop',cat:'Educación',icon:'',price:0,priceFmt:'GRATIS',priceOrig:'$5.99',type:'free',hasIAP:false,desc:'Organizador académico para estudiantes.',url:'https://apps.apple.com/search?term=subjects+student',rating:4.6,ratingCnt:1800},
+  {id:'f6',name:'Creaks',dev:'Amanita Design',cat:'Juegos',icon:'',price:0,priceFmt:'GRATIS',priceOrig:'$4.99',type:'free',hasIAP:false,desc:'Juego de puzzles con arte excepcional. Normalmente $4.99.',url:'https://apps.apple.com/search?term=creaks+amanita',rating:4.8,ratingCnt:4100},
+  // Descuentos
+  {id:'d1',name:'PDF Expert',dev:'Readdle',cat:'Productividad',icon:'',price:4.99,priceFmt:'$4.99',priceOrig:'$12.99',type:'disc',hasIAP:false,desc:'El mejor editor de PDF para iPhone. Precio habitual $12.99.',url:'https://apps.apple.com/search?term=pdf+expert+readdle',rating:4.8,ratingCnt:31000},
+  {id:'d2',name:'Capo',dev:'SuperMegaUltraGroovy',cat:'Música',icon:'',price:3.99,priceFmt:'$3.99',priceOrig:'$17.99',type:'disc',hasIAP:false,desc:'Aprende cualquier canción al oído con IA.',url:'https://apps.apple.com/search?term=capo+music',rating:4.5,ratingCnt:6700},
+  {id:'d3',name:'Keewordz',dev:'AppAgent',cat:'Negocios',icon:'',price:4.99,priceFmt:'$4.99',priceOrig:'$14.99',type:'disc',hasIAP:false,desc:'Investigación de keywords para el App Store.',url:'https://apps.apple.com/search?term=keewordz',rating:4.4,ratingCnt:890},
+  {id:'d4',name:'Lasso',dev:'Purple Tree',cat:'Utilidades',icon:'',price:0.99,priceFmt:'$0.99',priceOrig:'$7.99',type:'disc',hasIAP:false,desc:'Gestor de marcadores con iCloud y extensión de Share.',url:'https://apps.apple.com/search?term=lasso+bookmarks',rating:4.7,ratingCnt:2100},
+  // IAP
+  {id:'i1',name:'Vectornator',dev:'Linearity',cat:'Diseño',icon:'',price:0,priceFmt:'GRATIS',priceOrig:null,type:'iap',hasIAP:true,desc:'Suite de diseño vectorial profesional. Pro via suscripción.',url:'https://apps.apple.com/search?term=vectornator',rating:4.8,ratingCnt:28000},
+  {id:'i2',name:'Speeko',dev:'Speeko Inc',cat:'Educación',icon:'',price:0,priceFmt:'GRATIS',priceOrig:null,type:'iap',hasIAP:true,desc:'Coach de comunicación y oratoria. Suscripción premium en oferta.',url:'https://apps.apple.com/search?term=speeko+public+speaking',rating:4.6,ratingCnt:7800},
+  {id:'i3',name:'GoodLinks',dev:'Ngoc Luu',cat:'Productividad',icon:'',price:0,priceFmt:'GRATIS',priceOrig:null,type:'iap',hasIAP:true,desc:'Lector de artículos con sincronización premium via IAP.',url:'https://apps.apple.com/search?term=goodlinks',rating:4.9,ratingCnt:4200},
+];
+
+// ── LOAD DATA ─────────────────────────────────────────────────────────────────
+
 async function loadData() {
-  document.getElementById('loadingState').style.display = 'block';
-  document.getElementById('mainContent').style.display = 'none';
-  var usedFallback = false;
+  showLoading(true);
+  var useFallback = false;
+
   try {
-    var results = await Promise.all([fetchTopIds('free'), fetchTopIds('paid')]);
-    var topFreeIds = results[0], topPaidIds = results[1];
+    var results = await Promise.all([
+      fetchTopIds('free'),
+      fetchTopIds('paid'),
+    ]);
+    var topFreeIds = results[0];
+    var topPaidIds = results[1];
+
+    if (!topFreeIds.length) throw new Error('no rss data');
+
     var topFreeSet = new Set(topFreeIds);
-    var seen = {};
-    var allIds = [];
-    SEED_IDS.concat(topPaidIds.slice(0,60)).concat(topFreeIds.slice(0,60)).forEach(function(id){
-      if (!seen[id]) { seen[id]=1; allIds.push(id); }
-    });
-    var raw = await fetchById(allIds);
-    if (!raw.length) throw new Error('empty');
-    allApps = parseRaw(raw, topFreeSet);
-    if (!allApps.length) throw new Error('no deals');
+    var topPaidSet = new Set(topPaidIds);
+
+    // Combinar: seeds + top-paid (para buscar cuáles bajaron) + top-free (para lookup de precios)
+    var idSet = {};
+    SEED_IDS.concat(topPaidIds.slice(0, 100)).concat(topFreeIds.slice(0, 100)).forEach(function(id){ idSet[id] = 1; });
+    var allIds = Object.keys(idSet);
+
+    var raw = await fetchItunesById(allIds);
+    if (!raw.length) throw new Error('no itunes data');
+
+    allApps = parseApps(raw, topFreeSet, topPaidSet);
+    if (!allApps.length) throw new Error('no deals found');
+
+    loadedReal = true;
+
   } catch(e) {
-    console.warn('Fallback:', e.message);
+    console.warn('Using fallback:', e.message);
     allApps = FALLBACK;
-    usedFallback = true;
+    useFallback = true;
   }
-  document.getElementById('loadingState').style.display = 'none';
-  document.getElementById('mainContent').style.display = 'block';
-  document.getElementById('errorBanner').style.display = usedFallback ? 'block' : 'none';
+
+  showLoading(false);
+  document.getElementById('warnBanner').style.display = useFallback ? 'block' : 'none';
+
   var now = new Date();
-  document.getElementById('lastUpdated').style.display = 'flex';
-  document.getElementById('updatedText').textContent = 'Actualizado a las ' + now.getHours() + ':' + String(now.getMinutes()).padStart(2,'0') + (usedFallback ? ' · datos de ejemplo' : '');
+  var lbl = document.getElementById('updatedLbl');
+  var txt = document.getElementById('updatedTxt');
+  lbl.style.display = 'block';
+  txt.textContent = 'Actualizado ' + now.getHours() + ':' + String(now.getMinutes()).padStart(2,'0') + (useFallback ? ' · ejemplo' : '');
+
   buildCats();
   updateStats();
-  renderAll();
+  renderDeals();
 }
 
-function setType(type) {
-  activeType = type;
-  var ids = ['ft-all','ft-free','ft-disc','ft-iap'];
-  ids.forEach(function(id){ document.getElementById(id).className = 'ftype'; });
-  var mapActive = {all:'active-all',free:'active-free',discount:'active-discount',iap:'active-iap'};
-  var mapId = {all:'ft-all',free:'ft-free',discount:'ft-disc',iap:'ft-iap'};
-  document.getElementById(mapId[type]).classList.add(mapActive[type]);
-  renderAll();
+function showLoading(on) {
+  document.getElementById('loadBox').style.display = on ? 'block' : 'none';
+  ['sec-free','sec-disc','sec-iap'].forEach(function(id){
+    document.getElementById(id).style.display = on ? 'none' : 'block';
+  });
 }
 
-function setCat(cat, el) {
-  activeCat = cat;
-  document.querySelectorAll('.cat-btn').forEach(function(b){ b.classList.remove('active'); });
-  el.classList.add('active');
-  renderAll();
+// ── STATS ─────────────────────────────────────────────────────────────────────
+
+function updateStats() {
+  document.getElementById('cnt-free').textContent = allApps.filter(function(a){ return a.type === 'free'; }).length;
+  document.getElementById('cnt-disc').textContent = allApps.filter(function(a){ return a.type === 'disc'; }).length;
+  document.getElementById('cnt-iap').textContent  = allApps.filter(function(a){ return a.type === 'iap';  }).length;
 }
+
+// ── CATEGORIES ────────────────────────────────────────────────────────────────
 
 function buildCats() {
   var cats = ['all'];
   var seen = {};
-  allApps.forEach(function(a){ if (!seen[a.cat]) { seen[a.cat]=1; cats.push(a.cat); } });
+  allApps.forEach(function(a){ if (a.cat && !seen[a.cat]) { seen[a.cat]=1; cats.push(a.cat); } });
   cats.sort(function(a,b){ return a==='all'?-1:b==='all'?1:a.localeCompare(b); });
-  document.getElementById('catButtons').innerHTML = cats.map(function(c){
-    return '<button class="cat-btn' + (c==='all'?' active':'') + '" onclick="window._appdeals.setCat(\'' + c.replace(/'/g,"\\'") + '\',this)">' + (c==='all'?'Todas las categorías':c) + '</button>';
+
+  var html = cats.map(function(c){
+    return '<span class="cat-pill' + (c==='all'?' active':'') + '" onclick="setCat(\'' + c.replace(/'/g,"\\'") + '\',this)">' + (c==='all'?'Todas':c) + '</span>';
   }).join('');
+  document.getElementById('catScroll').innerHTML = html;
 }
 
-function getFiltered(forceType) {
-  var q = document.getElementById('searchInput').value.toLowerCase();
-  var type = forceType || activeType;
+function setCat(cat, el) {
+  activeCat = cat;
+  document.querySelectorAll('.cat-pill').forEach(function(p){ p.classList.remove('active'); });
+  el.classList.add('active');
+  renderDeals();
+}
+
+// ── FILTER SEGMENT ────────────────────────────────────────────────────────────
+
+function setFilter(f) {
+  activeFilter = f;
+  ['free','disc','iap'].forEach(function(k){
+    var el = document.getElementById('seg-'+k);
+    el.className = 'seg' + (k===f?' active-'+f:'');
+  });
+  // Show only active section
+  document.getElementById('sec-free').style.display = f === 'free' ? 'block' : 'none';
+  document.getElementById('sec-disc').style.display = f === 'disc' ? 'block' : 'none';
+  document.getElementById('sec-iap').style.display  = f === 'iap'  ? 'block' : 'none';
+  renderDeals();
+}
+window.setFilter = setFilter;
+
+// ── RENDER ─────────────────────────────────────────────────────────────────────
+
+function getFiltered(type) {
+  var q = document.getElementById('searchInput').value.trim().toLowerCase();
   return allApps.filter(function(a){
-    var tm = type === 'all' ? true : a.type === type;
+    var tm = a.type === type;
     var cm = activeCat === 'all' || a.cat === activeCat;
-    var sm = !q || a.name.toLowerCase().indexOf(q) !== -1 || a.dev.toLowerCase().indexOf(q) !== -1 || a.cat.toLowerCase().indexOf(q) !== -1;
+    var sm = !q || a.name.toLowerCase().includes(q) || a.dev.toLowerCase().includes(q) || a.cat.toLowerCase().includes(q);
     return tm && cm && sm;
   });
 }
 
-function updateStats() {
-  document.getElementById('statFree').textContent = allApps.filter(function(a){return a.type==='free';}).length;
-  document.getElementById('statDisc').textContent = allApps.filter(function(a){return a.type==='discount';}).length;
-  document.getElementById('statIap').textContent  = allApps.filter(function(a){return a.type==='iap';}).length;
-}
+function rowHTML(a) {
+  var wished = wishIds.indexOf(a.id) !== -1;
+  var badgeClass = {free:'badge-free',disc:'badge-disc',iap:'badge-iap'}[a.type];
+  var badgeLabel = {free:'GRATIS',disc:'OFERTA',iap:'IAP'}[a.type];
+  var priceClass = a.type === 'free' || a.type === 'iap' ? 'free' : 'disc';
+  var stars = a.rating ? '⭐ ' + a.rating.toFixed(1) : '';
+  var iapTag = (a.hasIAP && a.type !== 'iap') ? '<span class="iap-tag">+IAP</span>' : '';
 
-function cardHTML(a) {
-  var icon = a.icon ? '<img class="app-icon" src="' + a.icon + '" alt="" loading="lazy" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\'">' : '';
+  var iconHtml = a.icon
+    ? '<img class="app-icon" src="' + a.icon + '" alt="" loading="lazy" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\'">'
+    : '';
   var phStyle = a.icon ? 'display:none' : '';
-  var ph = '<div class="app-icon-placeholder" style="' + phStyle + '">📱</div>';
-  var badgeClass = {free:'badge-free',discount:'badge-discount',iap:'badge-iap'}[a.type];
-  var badgeLabel = {free:'GRATIS',discount:'OFERTA',iap:'IAP'}[a.type];
-  var iapBadge = (a.hasIAP && a.type !== 'iap') ? '<span class="iap-note">+ IAP</span>' : '';
-  var stars = a.rating ? '<span class="tag">⭐ ' + a.rating.toFixed(1) + '</span>' : '';
-  var priceClass = a.type === 'free' ? 'free' : 'discount';
-  return '<a class="app-card" href="' + a.storeUrl + '" target="_blank" rel="noopener">' +
-    '<span class="store-btn">Ver en App Store ↗</span>' +
-    '<div class="app-icon-wrap">' + icon + ph + '<span class="badge-type ' + badgeClass + '">' + badgeLabel + '</span></div>' +
+
+  var pctHtml = '';
+  if (a.type === 'disc' && a.priceOrig) {
+    var origNum = parseFloat(a.priceOrig.replace(/[^0-9.]/g,''));
+    if (origNum > a.price) {
+      var pct = Math.round((1 - a.price/origNum)*100);
+      pctHtml = '<div class="pct-off">-' + pct + '%</div>';
+    }
+  }
+
+  return '<div class="app-row" onclick="openApp(\'' + a.id + '\',event)">' +
+    '<div class="app-icon-wrap">' +
+      iconHtml +
+      '<div class="app-icon-ph" style="' + phStyle + '">📱</div>' +
+      '<span class="price-badge ' + badgeClass + '">' + badgeLabel + '</span>' +
+    '</div>' +
     '<div class="app-info">' +
-      '<div class="app-name">' + a.name + '</div>' +
-      '<div class="app-dev">' + a.dev + '</div>' +
-      '<div class="app-tags"><span class="tag">' + a.cat + '</span>' + stars + '</div>' +
-      '<div class="app-price-row"><span class="price-now ' + priceClass + '">' + a.priceFormatted + '</span>' + iapBadge + '</div>' +
-      (a.desc ? '<div class="app-desc">' + a.desc + '</div>' : '') +
-    '</div></a>';
+      '<div class="app-name">' + esc(a.name) + '</div>' +
+      '<div class="app-dev">' + esc(a.dev) + '</div>' +
+      '<div class="app-meta">' +
+        '<span class="cat-tag">' + esc(a.cat) + '</span>' +
+        (stars ? '<span class="rating-tag">' + stars + '</span>' : '') +
+        iapTag +
+      '</div>' +
+    '</div>' +
+    '<div class="app-price">' +
+      '<div class="price-now ' + priceClass + '">' + a.priceFmt + '</div>' +
+      (a.priceOrig ? '<div class="price-was">' + a.priceOrig + '</div>' : '') +
+      pctHtml +
+    '</div>' +
+    '<button class="wish-star" onclick="toggleWish(\'' + a.id + '\',event)" style="background:none;border:none;font-size:18px;cursor:pointer;padding:4px;flex-shrink:0;color:' + (wished ? '#ff9f0a' : 'var(--text3)') + '">' + (wished ? '★' : '☆') + '</button>' +
+    '<span class="chevron">›</span>' +
+  '</div>';
 }
 
-function renderSection(gridId, sectionId, countId, apps) {
-  var section = document.getElementById(sectionId);
-  if (!apps.length) { section.style.display = 'none'; return; }
-  section.style.display = 'block';
-  document.getElementById(countId).textContent = apps.length + ' app' + (apps.length !== 1 ? 's' : '');
-  document.getElementById(gridId).innerHTML = apps.map(cardHTML).join('') || '<div class="empty-state">Sin resultados</div>';
+function renderSection(listId, lblId, type) {
+  var apps = getFiltered(type);
+  var list = document.getElementById(listId);
+  var lbl  = document.getElementById(lblId);
+  lbl.textContent = apps.length + ' app' + (apps.length !== 1 ? 's' : '');
+  if (!apps.length) {
+    list.innerHTML = '<div class="app-row" style="cursor:default;justify-content:center"><span style="color:var(--text3);font-size:13px">Sin resultados para este filtro</span></div>';
+  } else {
+    list.innerHTML = apps.map(rowHTML).join('');
+  }
 }
 
-function renderAll() {
-  var isAll = activeType === 'all';
-  renderSection('freeGrid','freeSection','freeSectionCount', (isAll || activeType==='free')     ? getFiltered('free')     : []);
-  renderSection('discGrid','discSection','discSectionCount', (isAll || activeType==='discount') ? getFiltered('discount') : []);
-  renderSection('iapGrid', 'iapSection', 'iapSectionCount', (isAll || activeType==='iap')      ? getFiltered('iap')      : []);
+function renderDeals() {
+  renderSection('list-free', 'lbl-free', 'free');
+  renderSection('list-disc', 'lbl-disc', 'disc');
+  renderSection('list-iap',  'lbl-iap',  'iap');
 }
 
-// Exponer funciones que se llaman desde el HTML generado dinámicamente
-window._appdeals = { setCat: setCat };
+// ── WISHLIST ──────────────────────────────────────────────────────────────────
 
-document.getElementById('searchInput').addEventListener('input', renderAll);
-document.getElementById('ft-all').addEventListener('click',  function(){ setType('all'); });
-document.getElementById('ft-free').addEventListener('click', function(){ setType('free'); });
-document.getElementById('ft-disc').addEventListener('click', function(){ setType('discount'); });
-document.getElementById('ft-iap').addEventListener('click',  function(){ setType('iap'); });
+function saveWish() {
+  try { localStorage.setItem('wish', JSON.stringify(wishIds)); } catch(e){}
+}
 
+function toggleWish(id, e) {
+  e.stopPropagation();
+  var idx = wishIds.indexOf(id);
+  if (idx === -1) wishIds.push(id); else wishIds.splice(idx, 1);
+  saveWish();
+  renderDeals();
+  if (activeTab === 'wish') renderWishlist();
+  var cnt = wishIds.length;
+  document.getElementById('lbl-wish').textContent = cnt + ' app' + (cnt !== 1 ? 's' : '');
+}
+window.toggleWish = toggleWish;
+
+function renderWishlist() {
+  var apps = allApps.filter(function(a){ return wishIds.indexOf(a.id) !== -1; });
+  var cnt = wishIds.length;
+  document.getElementById('lbl-wish').textContent = cnt + ' app' + (cnt !== 1 ? 's' : '');
+  if (!apps.length) {
+    document.getElementById('wish-content').innerHTML =
+      '<div class="empty-wish"><div class="empty-wish-icon">⭐</div><div class="empty-wish-title">Wishlist vacía</div><div class="empty-wish-msg">Tocá ☆ en cualquier app<br>para guardarla aquí</div></div>';
+    return;
+  }
+  document.getElementById('wish-content').innerHTML =
+    '<div class="app-list" style="margin:0 12px">' + apps.map(rowHTML).join('') + '</div>';
+}
+
+// ── OPEN APP ──────────────────────────────────────────────────────────────────
+
+function openApp(id, e) {
+  if (e.target.classList.contains('wish-star')) return;
+  var a = allApps.find(function(x){ return x.id === id; });
+  if (a && a.url && a.url !== '#') window.open(a.url, '_blank');
+}
+window.openApp = openApp;
+
+// ── TABS ──────────────────────────────────────────────────────────────────────
+
+function switchTab(tab) {
+  activeTab = tab;
+  ['deals','wish','info'].forEach(function(t){
+    document.getElementById('view-' + t).classList.toggle('active', t === tab);
+    document.getElementById('tab-' + t).classList.toggle('active', t === tab);
+  });
+  if (tab === 'wish') renderWishlist();
+  // Scroll back to top
+  document.getElementById('scrollArea').scrollTop = 0;
+}
+window.switchTab = switchTab;
+
+// ── SEARCH & REFRESH ──────────────────────────────────────────────────────────
+
+document.getElementById('searchInput').addEventListener('input', renderDeals);
+
+document.getElementById('refreshBtn').addEventListener('click', function(){
+  var btn = document.getElementById('refreshBtn');
+  btn.classList.add('spinning');
+  loadData().finally(function(){ btn.classList.remove('spinning'); });
+});
+
+// ── UTILS ─────────────────────────────────────────────────────────────────────
+
+function esc(s) {
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+window.setCat = setCat;
+
+// ── INIT ──────────────────────────────────────────────────────────────────────
+
+// Initialize segment visibility
+setFilter('free');
 loadData();
 
 })();
