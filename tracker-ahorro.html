@@ -38,6 +38,13 @@
 
 html { scroll-behavior: smooth; }
 
+/* Ocultar scrollbar */
+html, body { scrollbar-width: none; -ms-overflow-style: none; }
+html::-webkit-scrollbar, body::-webkit-scrollbar { display: none; }
+
+/* Bloquear selección de texto */
+* { -webkit-user-select: none; user-select: none; }
+
 body {
   background: var(--bg);
   color: var(--cream);
@@ -749,76 +756,6 @@ body::before {
 
 const QUINCENAS = [
   {
-    id: 'q1',
-    date: '26 de Marzo',
-    range: '26 Mar → 11 Abr',
-    phase: 1,
-    badge: 'Fase 1',
-    badgeClass: 'badge-future',
-    items: [
-      { name: 'Polaco', note: '26 de marzo', amount: 20000, type: 'fixed' },
-      { name: 'Teléfono', note: 'Pago único este mes (28 marzo)', amount: 49000, type: 'fixed' },
-      { name: 'Gasolina', note: '26 de marzo', amount: 5000, type: 'fixed' },
-      { name: 'Casa (½ mensual)', note: 'Pago: 21 de abril', amount: 42500, type: 'fixed' },
-      { name: 'Internet (½ mensual)', note: 'Pago: 15 de abril', amount: 13000, type: 'fixed' },
-      { name: 'Ahorro Dimex', note: 'Meta: 28 de mayo', amount: 25000, type: 'dimex' },
-      { name: 'Ahorro mamá', note: 'Lo antes posible', amount: 20500, type: 'saving' },
-      { name: 'Gasto personal', note: 'Imprevistos', amount: 15000, type: 'personal' },
-    ],
-    totalFixed: 129500,
-    totalSaving: 45500,
-    totalPersonal: 15000,
-    mamaSaving: 20500,
-    acumulado: 20500,
-    note: '⚡ Solo en esta quincena el teléfono se paga completo (₡49,000). Desde abril se divide ₡24,500 por quincena.',
-  },
-  {
-    id: 'q2',
-    date: '12 de Abril',
-    range: '12 Abr → 25 Abr',
-    phase: 1,
-    badge: 'Fase 1',
-    badgeClass: 'badge-future',
-    items: [
-      { name: 'Internet (½ mensual)', note: '15 de abril', amount: 13000, type: 'fixed' },
-      { name: 'Casa (½ mensual)', note: '21 de abril', amount: 42500, type: 'fixed' },
-      { name: 'Polaco', note: '12 de abril', amount: 20000, type: 'fixed' },
-      { name: 'Gasolina', note: '12 de abril', amount: 5000, type: 'fixed' },
-      { name: 'Teléfono (½ · pago día 28)', note: '28 de abril', amount: 24500, type: 'fixed' },
-      { name: 'Ahorro Dimex', note: 'Meta: 28 de mayo', amount: 25000, type: 'dimex' },
-      { name: 'Ahorro mamá', note: 'Lo antes posible', amount: 45000, type: 'saving' },
-      { name: 'Gasto personal', note: 'Imprevistos', amount: 15000, type: 'personal' },
-    ],
-    totalFixed: 105000,
-    totalSaving: 70000,
-    totalPersonal: 15000,
-    mamaSaving: 45000,
-    acumulado: 65500,
-  },
-  {
-    id: 'q3',
-    date: '26 de Abril',
-    range: '26 Abr → 11 May',
-    phase: 1,
-    badge: 'Fase 1',
-    badgeClass: 'badge-future',
-    items: [
-      { name: 'Internet (½ mensual)', note: '15 de mayo', amount: 13000, type: 'fixed' },
-      { name: 'Casa (½ mensual)', note: '21 de mayo', amount: 42500, type: 'fixed' },
-      { name: 'Polaco', note: '26 de abril', amount: 20000, type: 'fixed' },
-      { name: 'Gasolina', note: '26 de abril', amount: 5000, type: 'fixed' },
-      { name: 'Teléfono (½ · pago día 28)', note: '28 de mayo', amount: 24500, type: 'fixed' },
-      { name: 'Ahorro Dimex', note: 'Meta: 28 de mayo', amount: 25000, type: 'dimex' },
-      { name: 'Ahorro mamá', note: 'Lo antes posible', amount: 45000, type: 'saving' },
-      { name: 'Gasto personal', note: 'Imprevistos', amount: 15000, type: 'personal' },
-    ],
-    totalFixed: 105000,
-    totalSaving: 70000,
-    totalPersonal: 15000,
-    mamaSaving: 45000,
-    acumulado: 110500,
-  },
-  {
     id: 'q4',
     date: '12 de Mayo',
     range: '12 May → 25 May',
@@ -1176,7 +1113,7 @@ function computeAccum() {
 // ═══════════════════════════════════════════════
 // RENDER
 // ═══════════════════════════════════════════════
-let activeQTab = 'q5'; // default to current
+let activeQTab = (QUINCENAS.find(q => q.isCurrent) || QUINCENAS[0]).id;
 
 function fmt(n) {
   return '₡' + Math.abs(n).toLocaleString('es-CR');
