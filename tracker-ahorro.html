@@ -1,0 +1,1512 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Ahorro Mamá 2026</title>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Ahorro Mamá">
+<meta name="theme-color" content="#0F0E0C">
+<link rel="apple-touch-icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAAAACXBIWXMAAAsTAAALEwEAmpwYAAAF8WlUWHRYTUw6Y29tLmFkb2JlLnhtcAAAAAAAPD94cGFja2V0IGJlZ2luPSLvu78iIGlkPSJXNU0wTXBDZWhpSHpyZVN6TlRjemtjOWQiPz4gPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iQWRvYmUgWE1QIENvcmUgNS42LWMxNDUgNzkuMTYzNDk5LCAyMDE4LzA4LzEzLTE2OjQwOjIyICAgICAgICAiPiA8cmRmOlJERiB4bWxuczpyZGY9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkvMDIvMjItcmRmLXN5bnRheC1ucyMiPiA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIi8+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz7OgCBFAAABnElEQVR4nO3BMQEAAADCoPVP7WsIoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAeAMBuAABHwAAAABJRU5ErkJggg==">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Outfit:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --bg: #0F0E0C;
+  --surface: #1A1815;
+  --surface2: #242018;
+  --border: #2E2A22;
+  --border2: #3A3428;
+  --cream: #F5EFE3;
+  --muted: #7A7060;
+  --accent: #E8A04A;
+  --accent2: #C97B2A;
+  --gold: #F0C060;
+  --green: #5AAF7A;
+  --green-bg: #152214;
+  --red: #E05555;
+  --red-bg: #1E1010;
+  --blue: #60A0D8;
+  --phase1: #9B7ECB;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* Ocultar banner de tiiny.host */
+[class*="tiiny-"], [id*="tiiny-"] { display: none !important; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--cream);
+  font-family: 'Outfit', sans-serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+/* ── NOISE TEXTURE OVERLAY ── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.6;
+}
+
+.wrap { position: relative; z-index: 1; max-width: 520px; margin: 0 auto; padding: 0 16px 80px; }
+
+/* ── HERO ── */
+.hero {
+  padding: 48px 0 32px;
+  text-align: center;
+}
+
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+.hero-eyebrow::before,
+.hero-eyebrow::after {
+  content: '';
+  width: 24px;
+  height: 1px;
+  background: var(--accent);
+  opacity: 0.5;
+}
+
+.hero h1 {
+  font-family: 'Outfit', sans-serif;
+  font-size: 44px;
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.5px;
+}
+
+.hero h1 em {
+  font-style: normal;
+  color: var(--green);
+  font-weight: 800;
+}
+
+.hero-sub {
+  margin-top: 12px;
+  font-size: 13px;
+  color: var(--muted);
+  font-weight: 300;
+  letter-spacing: 0.04em;
+}
+
+/* ── PROGRESS HERO ── */
+.progress-hero {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 28px 24px;
+  margin-bottom: 16px;
+  position: relative;
+  overflow: hidden;
+}
+
+.progress-hero::before {
+  content: '';
+  position: absolute;
+  top: -40px; right: -40px;
+  width: 160px; height: 160px;
+  background: radial-gradient(circle, rgba(232,160,74,0.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.ph-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 20px;
+}
+
+.ph-label { font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+
+.ph-amount {
+  font-family: 'Playfair Display', serif;
+  font-size: 38px;
+  font-weight: 700;
+  color: var(--accent);
+  line-height: 1;
+}
+
+.ph-meta { text-align: right; }
+.ph-pct {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--cream);
+}
+.ph-pct span { font-size: 16px; font-weight: 300; color: var(--muted); }
+
+.ph-bar-bg {
+  background: var(--border2);
+  border-radius: 100px;
+  height: 10px;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+
+.ph-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent2), var(--accent), var(--gold));
+  border-radius: 100px;
+  transition: width 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+}
+
+.ph-bar-fill::after {
+  content: '';
+  position: absolute;
+  right: 0; top: 0; bottom: 0;
+  width: 20px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3));
+  border-radius: 100px;
+}
+
+.ph-bottom {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.ph-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 12px;
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+}
+
+.ph-stat { text-align: center; }
+.ph-stat-val { font-size: 18px; font-weight: 600; color: var(--cream); }
+.ph-stat-lbl { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; margin-top: 2px; }
+
+/* ── ALERT ── */
+.alert {
+  background: #1C1408;
+  border: 1px solid #6B4A1A;
+  border-radius: 14px;
+  padding: 14px 16px;
+  margin-bottom: 20px;
+  display: flex;
+  gap: 12px;
+  font-size: 13px;
+  color: #D4925A;
+  line-height: 1.5;
+}
+
+.alert strong { color: var(--accent); display: block; margin-bottom: 2px; font-weight: 600; }
+
+/* ── TABS ── */
+.tabs {
+  display: flex;
+  gap: 4px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 5px;
+  margin-bottom: 20px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.tabs::-webkit-scrollbar { display: none; }
+
+.tab-btn {
+  flex-shrink: 0;
+  padding: 8px 14px;
+  border-radius: 10px;
+  border: none;
+  background: transparent;
+  color: var(--muted);
+  font-family: 'Outfit', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+
+.tab-btn.active {
+  background: var(--accent);
+  color: #0F0E0C;
+  font-weight: 700;
+}
+
+.tab-btn.done-tab {
+  color: var(--green);
+}
+
+.tab-btn.current-tab {
+  color: var(--accent);
+  border: 1px solid var(--accent);
+  opacity: 0.9;
+}
+
+/* ── QUINCENA VIEW ── */
+.q-view { display: none; }
+.q-view.active { display: block; animation: fadeUp 0.3s ease; }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.q-header {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px 16px 0 0;
+  padding: 20px 20px 16px;
+  border-bottom: none;
+}
+
+.q-header-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.q-date {
+  font-family: 'Playfair Display', serif;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.q-badge {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  padding: 5px 12px;
+  border-radius: 100px;
+  text-transform: uppercase;
+}
+
+.badge-current { background: rgba(90,175,122,0.15); color: var(--green); border: 1px solid rgba(90,175,122,0.3); }
+.badge-adjusted { background: rgba(232,160,74,0.15); color: var(--accent); border: 1px solid rgba(232,160,74,0.3); }
+.badge-done { background: var(--green-bg); color: var(--green); border: 1px solid rgba(90,175,122,0.2); }
+.badge-future { background: var(--surface2); color: var(--muted); border: 1px solid var(--border); }
+.badge-final { background: rgba(240,192,96,0.15); color: var(--gold); border: 1px solid rgba(240,192,96,0.3); }
+
+.q-range { font-size: 12px; color: var(--muted); margin-top: 4px; }
+.q-income { font-size: 13px; color: var(--muted); margin-top: 12px; }
+.q-income strong { color: var(--cream); }
+
+/* ── ITEMS ── */
+.q-items {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-top: none;
+  border-bottom: none;
+}
+
+.q-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 13px 20px;
+  border-bottom: 1px solid var(--border);
+  transition: background 0.15s;
+}
+
+.q-item:last-child { border-bottom: none; }
+.q-item:hover { background: rgba(255,255,255,0.02); }
+
+.q-item.carry-item { background: rgba(224,85,85,0.05); }
+.q-item.saving-item { background: rgba(232,160,74,0.04); }
+
+.q-item-left { display: flex; flex-direction: column; gap: 2px; flex: 1; min-width: 0; }
+.q-item-name { font-size: 14px; font-weight: 500; color: var(--cream); }
+.q-item-note { font-size: 11px; color: var(--muted); }
+
+.q-item-right { display: flex; align-items: center; gap: 10px; }
+.q-amount { font-size: 14px; font-weight: 600; }
+.amt-fixed { color: #C88; }
+.amt-saving { color: var(--accent); }
+.amt-personal { color: var(--muted); }
+.amt-carry { color: var(--red); }
+.amt-dimex { color: var(--phase1); }
+
+/* Check button */
+.chk-btn {
+  width: 26px; height: 26px;
+  border-radius: 8px;
+  border: 2px solid var(--border2);
+  background: transparent;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.2s;
+  flex-shrink: 0;
+  font-size: 14px;
+}
+
+.chk-btn:hover { border-color: var(--green); }
+
+.q-item.checked .chk-btn {
+  background: var(--green);
+  border-color: var(--green);
+}
+
+.q-item.checked .q-item-name {
+  text-decoration: line-through;
+  opacity: 0.45;
+}
+.q-item.checked .q-item-note { opacity: 0.35; }
+.q-item.checked .q-amount { opacity: 0.35; }
+
+/* ── FOOTER ── */
+.q-footer {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-top: 1px solid var(--border2);
+  border-radius: 0 0 16px 16px;
+  padding: 18px 20px;
+  margin-bottom: 16px;
+}
+
+.q-footer-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  padding: 4px 0;
+  color: var(--muted);
+}
+
+.q-footer-row .fval { font-weight: 500; }
+.q-footer-row.total {
+  border-top: 1px solid var(--border2);
+  margin-top: 8px;
+  padding-top: 12px;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--cream);
+}
+
+.q-footer-row.total .flabel { color: var(--cream); }
+
+.acum-pill {
+  margin-top: 14px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 12px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.acum-pill .ap-label { font-size: 12px; color: var(--muted); }
+.acum-pill .ap-val {
+  font-family: 'Playfair Display', serif;
+  font-size: 22px;
+  color: var(--accent);
+}
+
+/* ── PROGRESS MINI ── */
+.q-progress {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 16px;
+  margin-bottom: 20px;
+}
+
+.qp-label { font-size: 11px; color: var(--muted); margin-bottom: 8px; letter-spacing: 0.08em; text-transform: uppercase; }
+.qp-bar-bg { background: var(--border2); border-radius: 100px; height: 6px; overflow: hidden; margin-bottom: 6px; }
+.qp-bar-fill { height: 100%; border-radius: 100px; background: var(--green); transition: width 0.8s ease; }
+.qp-info { display: flex; justify-content: space-between; font-size: 12px; color: var(--muted); }
+.qp-info .done { color: var(--green); font-weight: 600; }
+
+/* ── TIMELINE ── */
+.timeline {
+  display: none;
+  flex-direction: column;
+  gap: 0;
+}
+
+.timeline.active { display: flex; animation: fadeUp 0.3s ease; }
+
+.tl-item {
+  display: flex;
+  gap: 16px;
+  padding-bottom: 0;
+}
+
+.tl-left {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.tl-dot {
+  width: 14px; height: 14px;
+  border-radius: 50%;
+  border: 2px solid var(--border2);
+  background: var(--bg);
+  flex-shrink: 0;
+  transition: all 0.3s;
+  margin-top: 4px;
+}
+
+.tl-dot.done { background: var(--green); border-color: var(--green); }
+.tl-dot.current { background: var(--accent); border-color: var(--accent); box-shadow: 0 0 0 4px rgba(232,160,74,0.15); }
+.tl-dot.future { border-color: var(--border2); }
+
+.tl-line {
+  width: 1px;
+  flex: 1;
+  background: var(--border);
+  min-height: 28px;
+  margin: 4px 0;
+}
+
+.tl-right {
+  flex: 1;
+  padding-bottom: 24px;
+}
+
+.tl-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.tl-date { font-size: 14px; font-weight: 600; color: var(--cream); }
+.tl-date.muted { color: var(--muted); font-weight: 400; }
+.tl-date.current-color { color: var(--accent); }
+
+.tl-acum { font-size: 13px; color: var(--accent); font-weight: 500; }
+
+.tl-bar-bg { background: var(--border2); border-radius: 100px; height: 4px; overflow: hidden; }
+.tl-bar-fill { height: 100%; border-radius: 100px; transition: width 0.8s ease; }
+.tl-bar-fill.done-fill { background: var(--green); }
+.tl-bar-fill.current-fill { background: var(--accent); }
+.tl-bar-fill.future-fill { background: var(--border2); }
+
+.tl-info { display: flex; justify-content: space-between; font-size: 11px; color: var(--muted); margin-top: 4px; }
+
+/* ── MODAL ── */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.8);
+  z-index: 100;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.modal-overlay.open { display: flex; }
+
+.modal {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 20px 20px 0 0;
+  padding: 28px 24px 40px;
+  width: 100%;
+  max-width: 520px;
+  animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes slideUp {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
+}
+
+.modal-handle {
+  width: 36px; height: 4px;
+  background: var(--border2);
+  border-radius: 100px;
+  margin: 0 auto 20px;
+}
+
+.modal h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 26px;
+  margin-bottom: 8px;
+}
+
+.modal-sub { font-size: 13px; color: var(--muted); margin-bottom: 20px; }
+
+.modal-close {
+  width: 100%;
+  background: var(--accent);
+  color: #0F0E0C;
+  border: none;
+  border-radius: 12px;
+  padding: 16px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  margin-top: 16px;
+}
+
+/* ── CELEBRATION ── */
+.confetti-wrap {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 200;
+}
+
+/* ── NAV PILL ── */
+.nav-pill {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 4px;
+  background: rgba(26,24,21,0.95);
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  padding: 8px;
+  backdrop-filter: blur(20px);
+  z-index: 50;
+}
+
+.nav-btn {
+  padding: 10px 18px;
+  border-radius: 100px;
+  border: none;
+  background: transparent;
+  color: var(--muted);
+  font-family: 'Outfit', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.nav-btn.active {
+  background: var(--accent);
+  color: #0F0E0C;
+  font-weight: 700;
+}
+
+/* ── SECTION LABEL ── */
+.sec-label {
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-weight: 600;
+  margin-bottom: 12px;
+  padding-left: 2px;
+}
+
+/* ── RESET BTN ── */
+.reset-btn {
+  width: 100%;
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 14px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 13px;
+  color: var(--muted);
+  cursor: pointer;
+  margin-top: 12px;
+  transition: all 0.2s;
+}
+.reset-btn:hover { border-color: var(--red); color: var(--red); }
+
+.nota {
+  background: rgba(90,175,122,0.07);
+  border: 1px solid rgba(90,175,122,0.2);
+  border-radius: 12px;
+  padding: 12px 14px;
+  font-size: 12px;
+  color: #78C896;
+  line-height: 1.55;
+  margin-bottom: 16px;
+}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-eyebrow">Plan de Ahorro Personal</div>
+    <h1>Regalo para<br><em>Mamá</em></h1>
+    <div class="hero-sub">₡1,000,000 · 26 Marzo → 12 Noviembre 2026</div>
+  </div>
+
+  <!-- PROGRESS -->
+  <div class="progress-hero">
+    <div class="ph-top">
+      <div>
+        <div class="ph-label">Acumulado para mamá</div>
+        <div class="ph-amount" id="totalAccum">₡0</div>
+      </div>
+      <div class="ph-meta">
+        <div class="ph-pct" id="totalPct">0<span>%</span></div>
+        <div style="font-size:11px;color:var(--muted);margin-top:4px;">completado</div>
+      </div>
+    </div>
+    <div class="ph-bar-bg">
+      <div class="ph-bar-fill" id="mainBar" style="width:0%"></div>
+    </div>
+    <div class="ph-bottom">
+      <span>₡0</span>
+      <span id="remaining">₡1,000,000 restante</span>
+      <span>₡1,000,000</span>
+    </div>
+    <div class="ph-stats">
+      <div class="ph-stat">
+        <div class="ph-stat-val" id="statQuincenas">0/16</div>
+        <div class="ph-stat-lbl">Quincenas</div>
+      </div>
+      <div class="ph-stat">
+        <div class="ph-stat-val" id="statChecked" style="color:var(--green)">0</div>
+        <div class="ph-stat-lbl">Pagos hechos</div>
+      </div>
+      <div class="ph-stat">
+        <div class="ph-stat-val" id="statMonths" style="color:var(--accent)">Nov</div>
+        <div class="ph-stat-lbl">Meta</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ALERT ajuste -->
+  <div class="alert" id="alertBox">
+    <span style="font-size:18px;flex-shrink:0">⚡</span>
+    <div>
+      <strong>Ajuste por gastos imprevistos</strong>
+      Esta quincena (26 Mayo) se recuperan ₡37,500 pendientes del período anterior. El ahorro para mamá baja a ₡32,500 solo esta vez. Desde el 12 de Junio todo vuelve a ₡70,000.
+    </div>
+  </div>
+
+  <!-- TABS -->
+  <div id="mainContent">
+
+    <!-- NAV -->
+    <div style="display:flex;gap:8px;margin-bottom:16px;">
+      <button class="nav-btn active" id="btn-quincenas" onclick="switchView('quincenas')">Por quincena</button>
+      <button class="nav-btn" id="btn-timeline" onclick="switchView('timeline')">Cronograma</button>
+    </div>
+
+    <!-- QUINCENAS VIEW -->
+    <div id="view-quincenas">
+
+      <!-- TABS quincena selector -->
+      <div class="tabs" id="qTabs"></div>
+
+      <!-- Dynamic quincena cards -->
+      <div id="qContent"></div>
+
+    </div>
+
+    <!-- TIMELINE VIEW -->
+    <div id="view-timeline" style="display:none;">
+      <div class="timeline active" id="tlContainer"></div>
+    </div>
+
+    <button class="reset-btn" onclick="confirmReset()">↺ Reiniciar todo el progreso</button>
+
+  </div>
+
+</div>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal">
+  <div class="modal">
+    <div class="modal-handle"></div>
+    <div style="font-size:48px;text-align:center;margin-bottom:12px" id="modalEmoji">🎉</div>
+    <h2 id="modalTitle" style="text-align:center"></h2>
+    <p class="modal-sub" id="modalSub" style="text-align:center"></p>
+    <button class="modal-close" onclick="closeModal()">¡Genial!</button>
+  </div>
+</div>
+
+<script>
+// ═══════════════════════════════════════════════
+// DATA
+// ═══════════════════════════════════════════════
+
+const QUINCENAS = [
+  {
+    id: 'q1',
+    date: '26 de Marzo',
+    range: '26 Mar → 11 Abr',
+    phase: 1,
+    badge: 'Fase 1',
+    badgeClass: 'badge-future',
+    items: [
+      { name: 'Polaco', note: '26 de marzo', amount: 20000, type: 'fixed' },
+      { name: 'Teléfono', note: 'Pago único este mes (28 marzo)', amount: 49000, type: 'fixed' },
+      { name: 'Gasolina', note: '26 de marzo', amount: 5000, type: 'fixed' },
+      { name: 'Casa (½ mensual)', note: 'Pago: 21 de abril', amount: 42500, type: 'fixed' },
+      { name: 'Internet (½ mensual)', note: 'Pago: 15 de abril', amount: 13000, type: 'fixed' },
+      { name: 'Ahorro Dimex', note: 'Meta: 28 de mayo', amount: 25000, type: 'dimex' },
+      { name: 'Ahorro mamá', note: 'Lo antes posible', amount: 20500, type: 'saving' },
+      { name: 'Gasto personal', note: 'Imprevistos', amount: 15000, type: 'personal' },
+    ],
+    totalFixed: 129500,
+    totalSaving: 45500,
+    totalPersonal: 15000,
+    mamaSaving: 20500,
+    acumulado: 20500,
+    note: '⚡ Solo en esta quincena el teléfono se paga completo (₡49,000). Desde abril se divide ₡24,500 por quincena.',
+  },
+  {
+    id: 'q2',
+    date: '12 de Abril',
+    range: '12 Abr → 25 Abr',
+    phase: 1,
+    badge: 'Fase 1',
+    badgeClass: 'badge-future',
+    items: [
+      { name: 'Internet (½ mensual)', note: '15 de abril', amount: 13000, type: 'fixed' },
+      { name: 'Casa (½ mensual)', note: '21 de abril', amount: 42500, type: 'fixed' },
+      { name: 'Polaco', note: '12 de abril', amount: 20000, type: 'fixed' },
+      { name: 'Gasolina', note: '12 de abril', amount: 5000, type: 'fixed' },
+      { name: 'Teléfono (½ · pago día 28)', note: '28 de abril', amount: 24500, type: 'fixed' },
+      { name: 'Ahorro Dimex', note: 'Meta: 28 de mayo', amount: 25000, type: 'dimex' },
+      { name: 'Ahorro mamá', note: 'Lo antes posible', amount: 45000, type: 'saving' },
+      { name: 'Gasto personal', note: 'Imprevistos', amount: 15000, type: 'personal' },
+    ],
+    totalFixed: 105000,
+    totalSaving: 70000,
+    totalPersonal: 15000,
+    mamaSaving: 45000,
+    acumulado: 65500,
+  },
+  {
+    id: 'q3',
+    date: '26 de Abril',
+    range: '26 Abr → 11 May',
+    phase: 1,
+    badge: 'Fase 1',
+    badgeClass: 'badge-future',
+    items: [
+      { name: 'Internet (½ mensual)', note: '15 de mayo', amount: 13000, type: 'fixed' },
+      { name: 'Casa (½ mensual)', note: '21 de mayo', amount: 42500, type: 'fixed' },
+      { name: 'Polaco', note: '26 de abril', amount: 20000, type: 'fixed' },
+      { name: 'Gasolina', note: '26 de abril', amount: 5000, type: 'fixed' },
+      { name: 'Teléfono (½ · pago día 28)', note: '28 de mayo', amount: 24500, type: 'fixed' },
+      { name: 'Ahorro Dimex', note: 'Meta: 28 de mayo', amount: 25000, type: 'dimex' },
+      { name: 'Ahorro mamá', note: 'Lo antes posible', amount: 45000, type: 'saving' },
+      { name: 'Gasto personal', note: 'Imprevistos', amount: 15000, type: 'personal' },
+    ],
+    totalFixed: 105000,
+    totalSaving: 70000,
+    totalPersonal: 15000,
+    mamaSaving: 45000,
+    acumulado: 110500,
+  },
+  {
+    id: 'q4',
+    date: '12 de Mayo',
+    range: '12 May → 25 May',
+    phase: 1,
+    badge: 'Fase 1',
+    badgeClass: 'badge-future',
+    items: [
+      { name: 'Internet (½ mensual)', note: '15 de mayo', amount: 13000, type: 'fixed' },
+      { name: 'Casa (½ mensual)', note: '21 de mayo', amount: 42500, type: 'fixed' },
+      { name: 'Polaco', note: '12 de mayo', amount: 20000, type: 'fixed' },
+      { name: 'Gasolina', note: '12 de mayo', amount: 5000, type: 'fixed' },
+      { name: 'Teléfono (½ · pago día 28)', note: '28 de mayo', amount: 24500, type: 'fixed' },
+      { name: 'Ahorro Dimex · última cuota ✅', note: 'Meta cumplida: 28 de mayo', amount: 25000, type: 'dimex' },
+      { name: 'Ahorro mamá', note: 'Lo antes posible', amount: 45000, type: 'saving' },
+      { name: 'Gasto personal', note: 'Imprevistos', amount: 15000, type: 'personal' },
+    ],
+    totalFixed: 105000,
+    totalSaving: 70000,
+    totalPersonal: 15000,
+    mamaSaving: 45000,
+    acumulado: 155500,
+    note: '🎉 ¡Dimex completado! ₡100,000 listos para el 28 de mayo.',
+  },
+  {
+    id: 'q5',
+    date: '26 de Mayo',
+    range: '26 May → 11 Jun',
+    phase: 2,
+    badge: 'Ajustada ⚡',
+    badgeClass: 'badge-adjusted',
+    isCurrent: true,
+    items: [
+      { name: 'Internet (½ mensual)', note: '15 de junio', amount: 13000, type: 'fixed' },
+      { name: 'Casa (½ mensual)', note: '21 de junio', amount: 42500, type: 'fixed' },
+      { name: 'Polaco', note: '26 de mayo', amount: 20000, type: 'fixed' },
+      { name: 'Gasolina', note: '26 de mayo', amount: 5000, type: 'fixed' },
+      { name: 'Teléfono (½ · pago día 28)', note: '28 de junio', amount: 24500, type: 'fixed' },
+      { name: 'Recuperar teléfono anterior', note: 'Deuda quincena pasada', amount: 24500, type: 'carry' },
+      { name: 'Recuperar internet anterior', note: 'Deuda quincena pasada', amount: 13000, type: 'carry' },
+      { name: 'Ahorro mamá', note: 'Lo antes posible (ajustado)', amount: 32500, type: 'saving' },
+      { name: 'Gasto personal', note: 'Imprevistos', amount: 15000, type: 'personal' },
+    ],
+    totalFixed: 105000,
+    totalCarry: 37500,
+    totalSaving: 32500,
+    totalPersonal: 15000,
+    mamaSaving: 32500,
+    acumulado: 188000,
+    note: '✅ Al recuperar el faltante esta quincena el plan queda al día desde el 12 de Junio.',
+  },
+  {
+    id: 'q6',
+    date: '12 de Junio',
+    range: '12 Jun → 25 Jun',
+    phase: 2,
+    badge: 'Fase 2',
+    badgeClass: 'badge-future',
+    items: [
+      { name: 'Internet (½ mensual)', note: '15 de junio', amount: 13000, type: 'fixed' },
+      { name: 'Casa (½ mensual)', note: '21 de junio', amount: 42500, type: 'fixed' },
+      { name: 'Polaco', note: '12 de junio', amount: 20000, type: 'fixed' },
+      { name: 'Gasolina', note: '12 de junio', amount: 5000, type: 'fixed' },
+      { name: 'Teléfono (½ · pago día 28)', note: '28 de junio', amount: 24500, type: 'fixed' },
+      { name: 'Ahorro mamá', note: 'Lo antes posible', amount: 70000, type: 'saving' },
+      { name: 'Gasto personal', note: 'Imprevistos', amount: 15000, type: 'personal' },
+    ],
+    totalFixed: 105000,
+    totalSaving: 70000,
+    totalPersonal: 15000,
+    mamaSaving: 70000,
+    acumulado: 258000,
+  },
+  {
+    id: 'q7',
+    date: '26 de Junio',
+    range: '26 Jun → 11 Jul',
+    phase: 2,
+    badge: 'Fase 2',
+    badgeClass: 'badge-future',
+    items: [
+      { name: 'Internet (½ mensual)', note: '15 de julio', amount: 13000, type: 'fixed' },
+      { name: 'Casa (½ mensual)', note: '21 de julio', amount: 42500, type: 'fixed' },
+      { name: 'Polaco', note: '26 de junio', amount: 20000, type: 'fixed' },
+      { name: 'Gasolina', note: '26 de junio', amount: 5000, type: 'fixed' },
+      { name: 'Teléfono (½ · pago día 28)', note: '28 de julio', amount: 24500, type: 'fixed' },
+      { name: 'Ahorro mamá', note: 'Lo antes posible', amount: 70000, type: 'saving' },
+      { name: 'Gasto personal', note: 'Imprevistos', amount: 15000, type: 'personal' },
+    ],
+    totalFixed: 105000,
+    totalSaving: 70000,
+    totalPersonal: 15000,
+    mamaSaving: 70000,
+    acumulado: 328000,
+  },
+  {
+    id: 'q8',
+    date: '12 de Julio',
+    range: '12 Jul → 25 Jul',
+    phase: 2,
+    badge: 'Fase 2',
+    badgeClass: 'badge-future',
+    items: [
+      { name: 'Internet (½ mensual)', note: '15 de julio', amount: 13000, type: 'fixed' },
+      { name: 'Casa (½ mensual)', note: '21 de julio', amount: 42500, type: 'fixed' },
+      { name: 'Polaco', note: '12 de julio', amount: 20000, type: 'fixed' },
+      { name: 'Gasolina', note: '12 de julio', amount: 5000, type: 'fixed' },
+      { name: 'Teléfono (½ · pago día 28)', note: '28 de julio', amount: 24500, type: 'fixed' },
+      { name: 'Ahorro mamá', note: 'Lo antes posible', amount: 70000, type: 'saving' },
+      { name: 'Gasto personal', note: 'Imprevistos', amount: 15000, type: 'personal' },
+    ],
+    totalFixed: 105000,
+    totalSaving: 70000,
+    totalPersonal: 15000,
+    mamaSaving: 70000,
+    acumulado: 398000,
+  },
+  {
+    id: 'q9',
+    date: '26 de Julio',
+    range: '26 Jul → 11 Ago',
+    phase: 2,
+    badge: 'Fase 2',
+    badgeClass: 'badge-future',
+    items: [
+      { name: 'Internet (½ mensual)', note: '15 de agosto', amount: 13000, type: 'fixed' },
+      { name: 'Casa (½ mensual)', note: '21 de agosto', amount: 42500, type: 'fixed' },
+      { name: 'Polaco', note: '26 de julio', amount: 20000, type: 'fixed' },
+      { name: 'Gasolina', note: '26 de julio', amount: 5000, type: 'fixed' },
+      { name: 'Teléfono (½ · pago día 28)', note: '28 de agosto', amount: 24500, type: 'fixed' },
+      { name: 'Ahorro mamá', note: 'Lo antes posible', amount: 70000, type: 'saving' },
+      { name: 'Gasto personal', note: 'Imprevistos', amount: 15000, type: 'personal' },
+    ],
+    totalFixed: 105000,
+    totalSaving: 70000,
+    totalPersonal: 15000,
+    mamaSaving: 70000,
+    acumulado: 468000,
+  },
+  {
+    id: 'q10',
+    date: '12 de Agosto',
+    range: '12 Ago → 25 Ago',
+    phase: 2,
+    badge: 'Fase 2',
+    badgeClass: 'badge-future',
+    items: [
+      { name: 'Internet (½ mensual)', note: '15 de agosto', amount: 13000, type: 'fixed' },
+      { name: 'Casa (½ mensual)', note: '21 de agosto', amount: 42500, type: 'fixed' },
+      { name: 'Polaco', note: '12 de agosto', amount: 20000, type: 'fixed' },
+      { name: 'Gasolina', note: '12 de agosto', amount: 5000, type: 'fixed' },
+      { name: 'Teléfono (½ · pago día 28)', note: '28 de agosto', amount: 24500, type: 'fixed' },
+      { name: 'Ahorro mamá', note: 'Lo antes posible', amount: 70000, type: 'saving' },
+      { name: 'Gasto personal', note: 'Imprevistos', amount: 15000, type: 'personal' },
+    ],
+    totalFixed: 105000,
+    totalSaving: 70000,
+    totalPersonal: 15000,
+    mamaSaving: 70000,
+    acumulado: 538000,
+  },
+  {
+    id: 'q11',
+    date: '26 de Agosto',
+    range: '26 Ago → 11 Sep',
+    phase: 2,
+    badge: 'Fase 2',
+    badgeClass: 'badge-future',
+    items: [
+      { name: 'Internet (½ mensual)', note: '15 de septiembre', amount: 13000, type: 'fixed' },
+      { name: 'Casa (½ mensual)', note: '21 de septiembre', amount: 42500, type: 'fixed' },
+      { name: 'Polaco', note: '26 de agosto', amount: 20000, type: 'fixed' },
+      { name: 'Gasolina', note: '26 de agosto', amount: 5000, type: 'fixed' },
+      { name: 'Teléfono (½ · pago día 28)', note: '28 de septiembre', amount: 24500, type: 'fixed' },
+      { name: 'Ahorro mamá', note: 'Lo antes posible', amount: 70000, type: 'saving' },
+      { name: 'Gasto personal', note: 'Imprevistos', amount: 15000, type: 'personal' },
+    ],
+    totalFixed: 105000,
+    totalSaving: 70000,
+    totalPersonal: 15000,
+    mamaSaving: 70000,
+    acumulado: 608000,
+  },
+  {
+    id: 'q12',
+    date: '12 de Septiembre',
+    range: '12 Sep → 25 Sep',
+    phase: 2,
+    badge: 'Fase 2',
+    badgeClass: 'badge-future',
+    items: [
+      { name: 'Internet (½ mensual)', note: '15 de septiembre', amount: 13000, type: 'fixed' },
+      { name: 'Casa (½ mensual)', note: '21 de septiembre', amount: 42500, type: 'fixed' },
+      { name: 'Polaco', note: '12 de septiembre', amount: 20000, type: 'fixed' },
+      { name: 'Gasolina', note: '12 de septiembre', amount: 5000, type: 'fixed' },
+      { name: 'Teléfono (½ · pago día 28)', note: '28 de septiembre', amount: 24500, type: 'fixed' },
+      { name: 'Ahorro mamá', note: 'Lo antes posible', amount: 70000, type: 'saving' },
+      { name: 'Gasto personal', note: 'Imprevistos', amount: 15000, type: 'personal' },
+    ],
+    totalFixed: 105000,
+    totalSaving: 70000,
+    totalPersonal: 15000,
+    mamaSaving: 70000,
+    acumulado: 678000,
+  },
+  {
+    id: 'q13',
+    date: '26 de Septiembre',
+    range: '26 Sep → 11 Oct',
+    phase: 2,
+    badge: 'Fase 2',
+    badgeClass: 'badge-future',
+    items: [
+      { name: 'Internet (½ mensual)', note: '15 de octubre', amount: 13000, type: 'fixed' },
+      { name: 'Casa (½ mensual)', note: '21 de octubre', amount: 42500, type: 'fixed' },
+      { name: 'Polaco', note: '26 de septiembre', amount: 20000, type: 'fixed' },
+      { name: 'Gasolina', note: '26 de septiembre', amount: 5000, type: 'fixed' },
+      { name: 'Teléfono (½ · pago día 28)', note: '28 de octubre', amount: 24500, type: 'fixed' },
+      { name: 'Ahorro mamá', note: 'Lo antes posible', amount: 70000, type: 'saving' },
+      { name: 'Gasto personal', note: 'Imprevistos', amount: 15000, type: 'personal' },
+    ],
+    totalFixed: 105000,
+    totalSaving: 70000,
+    totalPersonal: 15000,
+    mamaSaving: 70000,
+    acumulado: 748000,
+  },
+  {
+    id: 'q14',
+    date: '12 de Octubre',
+    range: '12 Oct → 25 Oct',
+    phase: 2,
+    badge: 'Fase 2',
+    badgeClass: 'badge-future',
+    items: [
+      { name: 'Internet (½ mensual)', note: '15 de octubre', amount: 13000, type: 'fixed' },
+      { name: 'Casa (½ mensual)', note: '21 de octubre', amount: 42500, type: 'fixed' },
+      { name: 'Polaco', note: '12 de octubre', amount: 20000, type: 'fixed' },
+      { name: 'Gasolina', note: '12 de octubre', amount: 5000, type: 'fixed' },
+      { name: 'Teléfono (½ · pago día 28)', note: '28 de octubre', amount: 24500, type: 'fixed' },
+      { name: 'Ahorro mamá', note: 'Lo antes posible', amount: 70000, type: 'saving' },
+      { name: 'Gasto personal', note: 'Imprevistos', amount: 15000, type: 'personal' },
+    ],
+    totalFixed: 105000,
+    totalSaving: 70000,
+    totalPersonal: 15000,
+    mamaSaving: 70000,
+    acumulado: 818000,
+  },
+  {
+    id: 'q15',
+    date: '26 de Octubre',
+    range: '26 Oct → 11 Nov',
+    phase: 2,
+    badge: 'Fase 2',
+    badgeClass: 'badge-future',
+    items: [
+      { name: 'Internet (½ mensual)', note: '15 de noviembre', amount: 13000, type: 'fixed' },
+      { name: 'Casa (½ mensual)', note: '21 de noviembre', amount: 42500, type: 'fixed' },
+      { name: 'Polaco', note: '26 de octubre', amount: 20000, type: 'fixed' },
+      { name: 'Gasolina', note: '26 de octubre', amount: 5000, type: 'fixed' },
+      { name: 'Teléfono (½ · pago día 28)', note: '28 de noviembre', amount: 24500, type: 'fixed' },
+      { name: 'Ahorro mamá', note: 'Lo antes posible', amount: 70000, type: 'saving' },
+      { name: 'Gasto personal', note: 'Imprevistos', amount: 15000, type: 'personal' },
+    ],
+    totalFixed: 105000,
+    totalSaving: 70000,
+    totalPersonal: 15000,
+    mamaSaving: 70000,
+    acumulado: 888000,
+  },
+  {
+    id: 'q16',
+    date: '12 de Noviembre',
+    range: '¡Quincena final! 🎉',
+    phase: 2,
+    badge: '¡META! 🎊',
+    badgeClass: 'badge-final',
+    isFinal: true,
+    items: [
+      { name: 'Internet (½ mensual)', note: '15 de noviembre', amount: 13000, type: 'fixed' },
+      { name: 'Casa (½ mensual)', note: '21 de noviembre', amount: 42500, type: 'fixed' },
+      { name: 'Polaco', note: '12 de noviembre', amount: 20000, type: 'fixed' },
+      { name: 'Gasolina', note: '12 de noviembre', amount: 5000, type: 'fixed' },
+      { name: 'Teléfono (½ · pago día 28)', note: '28 de noviembre', amount: 24500, type: 'fixed' },
+      { name: 'Ahorro mamá · ¡último aporte! 🎁', note: '¡Meta cumplida!', amount: 112000, type: 'saving' },
+      { name: 'Gasto personal', note: 'Imprevistos', amount: -2000, type: 'personal', display: '₡13,000' },
+    ],
+    totalFixed: 105000,
+    totalSaving: 112000,
+    totalPersonal: 13000,
+    mamaSaving: 112000,
+    acumulado: 1000000,
+    note: '🌸 ¡Lo lograste! ₡1,000,000 ahorrados con disciplina y amor. Un regalo que mamá nunca olvidará.',
+  },
+];
+
+// ═══════════════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════════════
+const STORAGE_KEY = 'ahorro_mama_2026_v3';
+
+function loadState() {
+  try {
+    const s = localStorage.getItem(STORAGE_KEY);
+    return s ? JSON.parse(s) : {};
+  } catch { return {}; }
+}
+
+function saveState(state) {
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch {}
+}
+
+let state = loadState();
+// state[qid] = { checked: Set of item indices, done: bool }
+
+function getQState(qid) {
+  if (!state[qid]) state[qid] = { checked: [], done: false };
+  return state[qid];
+}
+
+// ═══════════════════════════════════════════════
+// COMPUTED
+// ═══════════════════════════════════════════════
+function computeAccum() {
+  let total = 0;
+  let doneQuincenas = 0;
+  let totalChecked = 0;
+
+  QUINCENAS.forEach(q => {
+    const qs = getQState(q.id);
+    const checkedCount = qs.checked.length;
+    totalChecked += checkedCount;
+
+    // Count a quincena as done if all items checked
+    if (checkedCount >= q.items.length) {
+      doneQuincenas++;
+    }
+
+    // Accumulate saving items that are checked
+    if (qs.done) {
+      total += q.mamaSaving;
+    } else {
+      // Partial: add saving items if checked
+      q.items.forEach((item, idx) => {
+        if (item.type === 'saving' && qs.checked.includes(idx)) {
+          total += item.amount;
+        }
+      });
+    }
+  });
+
+  return { total, doneQuincenas, totalChecked };
+}
+
+// ═══════════════════════════════════════════════
+// RENDER
+// ═══════════════════════════════════════════════
+let activeQTab = 'q5'; // default to current
+
+function fmt(n) {
+  return '₡' + Math.abs(n).toLocaleString('es-CR');
+}
+
+function renderTabs() {
+  const tabs = document.getElementById('qTabs');
+  tabs.innerHTML = '';
+  QUINCENAS.forEach((q, i) => {
+    const qs = getQState(q.id);
+    const isDone = qs.checked.length >= q.items.length;
+    const btn = document.createElement('button');
+    btn.className = 'tab-btn';
+    btn.textContent = q.date.replace(' de ', '\n').split(' ')[0] + ' ' + q.date.split(' ')[2];
+
+    if (isDone) btn.classList.add('done-tab');
+    else if (q.isCurrent) btn.classList.add('current-tab');
+
+    if (activeQTab === q.id) btn.classList.add('active');
+    btn.onclick = () => { activeQTab = q.id; renderAll(); };
+    tabs.appendChild(btn);
+  });
+}
+
+function renderQContent() {
+  const container = document.getElementById('qContent');
+  const q = QUINCENAS.find(x => x.id === activeQTab);
+  if (!q) return;
+
+  const qs = getQState(q.id);
+  const checkedSet = new Set(qs.checked);
+  const totalItems = q.items.length;
+  const checkedCount = checkedSet.size;
+  const pct = Math.round((checkedCount / totalItems) * 100);
+
+  // Badge
+  let badgeClass = q.badgeClass;
+  if (checkedCount >= totalItems) badgeClass = 'badge-done';
+  else if (q.isCurrent) badgeClass = 'badge-adjusted';
+
+  // Items HTML
+  let itemsHTML = '';
+  q.items.forEach((item, idx) => {
+    const isChecked = checkedSet.has(idx);
+    let amtClass = 'amt-fixed';
+    let itemClass = '';
+    if (item.type === 'saving') { amtClass = 'amt-saving'; itemClass = 'saving-item'; }
+    else if (item.type === 'personal') { amtClass = 'amt-personal'; }
+    else if (item.type === 'carry') { amtClass = 'amt-carry'; itemClass = 'carry-item'; }
+    else if (item.type === 'dimex') { amtClass = 'amt-dimex'; }
+
+    const displayAmt = item.display || fmt(item.amount);
+    const checkMark = isChecked ? '✓' : '';
+
+    itemsHTML += `
+      <div class="q-item ${itemClass} ${isChecked ? 'checked' : ''}" data-qid="${q.id}" data-idx="${idx}" onclick="toggleItem('${q.id}', ${idx})">
+        <div class="q-item-left">
+          <span class="q-item-name">${item.name}</span>
+          <span class="q-item-note">${item.note}</span>
+        </div>
+        <div class="q-item-right">
+          <span class="q-amount ${amtClass}">${displayAmt}</span>
+          <button class="chk-btn">${checkMark}</button>
+        </div>
+      </div>`;
+  });
+
+  // Footer rows
+  let footerRows = `
+    <div class="q-footer-row">
+      <span class="flabel">Gastos fijos</span>
+      <span class="fval" style="color:#C88">${fmt(q.totalFixed)}</span>
+    </div>`;
+
+  if (q.totalCarry) {
+    footerRows += `
+    <div class="q-footer-row">
+      <span class="flabel">Recuperar faltante</span>
+      <span class="fval" style="color:var(--red)">${fmt(q.totalCarry)}</span>
+    </div>`;
+  }
+
+  footerRows += `
+    <div class="q-footer-row">
+      <span class="flabel">Ahorro mamá</span>
+      <span class="fval" style="color:var(--accent)">${fmt(q.mamaSaving)}</span>
+    </div>
+    <div class="q-footer-row">
+      <span class="flabel">Gasto personal</span>
+      <span class="fval" style="color:var(--muted)">${fmt(q.totalPersonal)}</span>
+    </div>
+    <div class="q-footer-row total">
+      <span class="flabel">Total quincena</span>
+      <span class="fval" style="color:var(--green)">₡190,000 ✓</span>
+    </div>`;
+
+  const nota = q.note ? `<div class="nota">${q.note}</div>` : '';
+
+  container.innerHTML = `
+    ${nota}
+    <div class="q-progress">
+      <div class="qp-label">Progreso de esta quincena</div>
+      <div class="qp-bar-bg">
+        <div class="qp-bar-fill" style="width:${pct}%"></div>
+      </div>
+      <div class="qp-info">
+        <span class="done">${checkedCount}/${totalItems} pagos marcados</span>
+        <span>${pct}%</span>
+      </div>
+    </div>
+
+    <div class="q-header">
+      <div class="q-header-top">
+        <div>
+          <div class="q-date">${q.date}</div>
+          <div class="q-range">${q.range}</div>
+        </div>
+        <span class="q-badge ${badgeClass}">${checkedCount >= totalItems ? '¡Listo! ✓' : q.badge}</span>
+      </div>
+      <div class="q-income">Quincena: <strong>₡190,000</strong></div>
+    </div>
+
+    <div class="q-items">${itemsHTML}</div>
+
+    <div class="q-footer">
+      ${footerRows}
+      <div class="acum-pill">
+        <span class="ap-label">Acumulado mamá al cierre</span>
+        <span class="ap-val">${fmt(q.acumulado)}</span>
+      </div>
+    </div>
+  `;
+}
+
+function renderTimeline() {
+  const container = document.getElementById('tlContainer');
+  container.innerHTML = '';
+  QUINCENAS.forEach((q, i) => {
+    const qs = getQState(q.id);
+    const isDone = qs.checked.length >= q.items.length;
+    const pct = Math.round((q.acumulado / 1000000) * 100);
+
+    let dotClass = 'future';
+    let dateClass = 'muted';
+    let fillClass = 'future-fill';
+    if (isDone) { dotClass = 'done'; fillClass = 'done-fill'; dateClass = ''; }
+    else if (q.isCurrent) { dotClass = 'current'; fillClass = 'current-fill'; dateClass = 'current-color'; }
+
+    const isLast = i === QUINCENAS.length - 1;
+
+    container.innerHTML += `
+      <div class="tl-item">
+        <div class="tl-left">
+          <div class="tl-dot ${dotClass}"></div>
+          ${!isLast ? '<div class="tl-line"></div>' : ''}
+        </div>
+        <div class="tl-right">
+          <div class="tl-head">
+            <span class="tl-date ${dateClass}">${q.date}</span>
+            <span class="tl-acum">${fmt(q.acumulado)}</span>
+          </div>
+          <div class="tl-bar-bg">
+            <div class="tl-bar-fill ${fillClass}" style="width:${pct}%"></div>
+          </div>
+          <div class="tl-info">
+            <span>${isDone ? '✓ Completada' : q.isCurrent ? '← Estás aquí' : q.range}</span>
+            <span>${pct}%</span>
+          </div>
+        </div>
+      </div>`;
+  });
+}
+
+function renderProgress() {
+  const { total, doneQuincenas, totalChecked } = computeAccum();
+  const pct = (total / 1000000 * 100).toFixed(1);
+  const remaining = 1000000 - total;
+
+  document.getElementById('totalAccum').textContent = fmt(total);
+  document.getElementById('totalPct').innerHTML = `${pct}<span>%</span>`;
+  document.getElementById('mainBar').style.width = pct + '%';
+  document.getElementById('remaining').textContent = fmt(remaining) + ' restante';
+  document.getElementById('statQuincenas').textContent = `${doneQuincenas}/16`;
+  document.getElementById('statChecked').textContent = totalChecked;
+}
+
+function renderAll() {
+  renderProgress();
+  renderTabs();
+  renderQContent();
+  renderTimeline();
+}
+
+// ═══════════════════════════════════════════════
+// INTERACTIONS
+// ═══════════════════════════════════════════════
+function toggleItem(qid, idx) {
+  const qs = getQState(qid);
+  const set = new Set(qs.checked);
+  const q = QUINCENAS.find(x => x.id === qid);
+
+  if (set.has(idx)) {
+    set.delete(idx);
+  } else {
+    set.add(idx);
+  }
+
+  state[qid].checked = Array.from(set);
+  state[qid].done = set.size >= q.items.length;
+
+  saveState(state);
+
+  // Check if quincena just completed
+  if (state[qid].done) {
+    setTimeout(() => {
+      if (q.isFinal) {
+        showModal('🌸', '¡Meta cumplida!', '₡1,000,000 ahorrados con disciplina y amor. Un regalo que mamá nunca olvidará. ❤️');
+        launchConfetti();
+      } else {
+        showModal('✅', `¡${q.date} lista!`, `Quincena completada. Acumulado para mamá: ${fmt(q.acumulado)}`);
+      }
+    }, 400);
+  }
+
+  renderAll();
+}
+
+function switchView(view) {
+  document.getElementById('view-quincenas').style.display = view === 'quincenas' ? 'block' : 'none';
+  document.getElementById('view-timeline').style.display = view === 'timeline' ? 'block' : 'none';
+  document.getElementById('btn-quincenas').classList.toggle('active', view === 'quincenas');
+  document.getElementById('btn-timeline').classList.toggle('active', view === 'timeline');
+}
+
+function showModal(emoji, title, sub) {
+  document.getElementById('modalEmoji').textContent = emoji;
+  document.getElementById('modalTitle').textContent = title;
+  document.getElementById('modalSub').textContent = sub;
+  document.getElementById('modal').classList.add('open');
+}
+
+function closeModal() {
+  document.getElementById('modal').classList.remove('open');
+}
+
+function confirmReset() {
+  if (confirm('¿Seguro que querés reiniciar todo el progreso?')) {
+    state = {};
+    saveState(state);
+    renderAll();
+  }
+}
+
+function launchConfetti() {
+  const wrap = document.createElement('div');
+  wrap.className = 'confetti-wrap';
+  document.body.appendChild(wrap);
+
+  const colors = ['#E8A04A','#F0C060','#5AAF7A','#C97B2A','#fff'];
+  for (let i = 0; i < 80; i++) {
+    const el = document.createElement('div');
+    const size = Math.random() * 10 + 5;
+    el.style.cssText = `
+      position:absolute;
+      left:${Math.random()*100}%;
+      top:-20px;
+      width:${size}px;
+      height:${size}px;
+      background:${colors[Math.floor(Math.random()*colors.length)]};
+      border-radius:${Math.random()>0.5?'50%':'2px'};
+      animation:fall ${Math.random()*2+2}s ${Math.random()*2}s linear forwards;
+      opacity:0.9;
+    `;
+    wrap.appendChild(el);
+  }
+
+  const style = document.createElement('style');
+  style.textContent = `@keyframes fall{to{transform:translateY(110vh) rotate(720deg);opacity:0;}}`;
+  document.head.appendChild(style);
+
+  setTimeout(() => wrap.remove(), 5000);
+}
+
+// Hide alert if past current quincena
+function checkAlert() {
+  const qs = getQState('q5');
+  if (qs.checked.length >= QUINCENAS.find(x=>x.id==='q5').items.length) {
+    const a = document.getElementById('alertBox');
+    if (a) a.style.display = 'none';
+  }
+}
+
+// ═══════════════════════════════════════════════
+// SERVICE WORKER (PWA offline support)
+// ═══════════════════════════════════════════════
+if ('serviceWorker' in navigator) {
+  const swCode = `
+    const CACHE = 'ahorro-mama-v1';
+    const FONTS = [
+      'https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap'
+    ];
+    self.addEventListener('install', e => {
+      e.waitUntil(
+        caches.open(CACHE).then(c => c.addAll(FONTS).catch(()=>{}))
+      );
+      self.skipWaiting();
+    });
+    self.addEventListener('activate', e => {
+      e.waitUntil(clients.claim());
+    });
+    self.addEventListener('fetch', e => {
+      e.respondWith(
+        caches.match(e.request).then(r => r || fetch(e.request).then(res => {
+          const clone = res.clone();
+          caches.open(CACHE).then(c => c.put(e.request, clone));
+          return res;
+        }).catch(() => new Response('', {status: 408})))
+      );
+    });
+  `;
+  const blob = new Blob([swCode], { type: 'application/javascript' });
+  const swUrl = URL.createObjectURL(blob);
+  navigator.serviceWorker.register(swUrl).catch(() => {});
+}
+
+// ═══════════════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════════════
+renderAll();
+checkAlert();
+</script>
+</body>
+</html>
