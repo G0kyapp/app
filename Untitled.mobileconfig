@@ -285,11 +285,11 @@
 			<key>PayloadDisplayName</key>
 			<string>Web Clip</string>
 			<key>PayloadIdentifier</key>
-			<string>com.apple.webClip.managed.ae867343-b444-484c-b5f6-64b669dc46da</string>
+			<string>com.apple.webClip.managed.043e6ec1-96d2-4842-bd5b-2244985dc757</string>
 			<key>PayloadType</key>
 			<string>com.apple.webClip.managed</string>
 			<key>PayloadUUID</key>
-			<string>ae867343-b444-484c-b5f6-64b669dc46da</string>
+			<string>043e6ec1-96d2-4842-bd5b-2244985dc757</string>
 			<key>PayloadVersion</key>
 			<integer>1</integer>
 			<key>Precomposed</key>
@@ -303,11 +303,11 @@
 	<key>PayloadDisplayName</key>
 	<string>Untitled</string>
 	<key>PayloadIdentifier</key>
-	<string>iMazing-Profile-Editor.fdaa8c41-fa43-48dd-83fa-d29b0e6eb7b4</string>
+	<string>iMazing-Profile-Editor.c825def4-e34d-4664-aab7-b5f1eaccacc8</string>
 	<key>PayloadType</key>
 	<string>Configuration</string>
 	<key>PayloadUUID</key>
-	<string>fdaa8c41-fa43-48dd-83fa-d29b0e6eb7b4</string>
+	<string>c825def4-e34d-4664-aab7-b5f1eaccacc8</string>
 	<key>PayloadVersion</key>
 	<integer>1</integer>
 </dict>
