@@ -5,6 +5,8 @@
 	<key>PayloadContent</key>
 	<array>
 		<dict>
+			<key>FullScreen</key>
+			<true/>
 			<key>Icon</key>
 			<data>
 			iVBORw0KGgoAAAANSUhEUgAAALQAAAC0CAYAAAA9zQYyAAAACXBIWXMAAAsTAAALEwEA
@@ -276,6 +278,8 @@
 			OAdWpsve9XY0ok1gfuhvNZCnjQXQUWs26kuezn4WAPm0HwJwBsAKgMjrne4Du78B3fHe
 			AkHbYNBe4+Ruox1tab0f7Zs4Vvt/zHKsetehQv4AAAAASUVORK5CYII=
 			</data>
+			<key>IgnoreManifestScope</key>
+			<true/>
 			<key>Label</key>
 			<string>MiAhorro</string>
 			<key>PayloadDisplayName</key>
